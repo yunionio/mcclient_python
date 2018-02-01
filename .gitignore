@@ -1,0 +1,12 @@
+*.pyc
+*.o
+*.DS_Store
+*swp
+.*swp
+.#*
+.gitconfig
+.idea
+*.log
+._*
+.apdisk
+build
