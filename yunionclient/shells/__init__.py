@@ -17,3 +17,4 @@ from groups import *
 from monitors import *
 from baremetals import *
 from schedtags import *
+from metadatas import *

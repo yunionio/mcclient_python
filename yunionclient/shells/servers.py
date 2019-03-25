@@ -434,6 +434,46 @@ def do_server_metadata(client, args):
         print guest
 
 
+@utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to set metadata info')
+@utils.arg('--tags', metavar='<TAGS>', action='append', help='Tags info')
+def do_server_set_tag(client, args):
+    """ Set metadata info of a virtual server """
+    kwargs = {}
+    for tag in args.tags:
+        info = tag.split('=')
+        if len(info) == 2:
+            kwargs[info[0]] = info[1]
+        elif len(info) == 1:
+            kwargs[info[0]] = ''
+        else:
+            raise Exception('Invalid tag info %s', tag)
+    guest = client.guests.perform_action(args.id, 'set-user-metadata', **kwargs)
+    if isinstance(guest, dict):
+        utils.print_dict(guest)
+    else:
+        print guest
+
+
+@utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to set metadata info')
+@utils.arg('--tags', metavar='<TAGS>', action='append', help='Tags info')
+def do_server_add_tag(client, args):
+    """ Add metadata info of a virtual server """
+    kwargs = {}
+    for tag in args.tags:
+        info = tag.split('=')
+        if len(info) == 2:
+            kwargs[info[0]] = info[1]
+        elif len(info) == 1:
+            kwargs[info[0]] = ''
+        else:
+            raise Exception('Invalid tag info %s', tag)
+    guest = client.guests.perform_action(args.id, 'user-metadata', **kwargs)
+    if isinstance(guest, dict):
+        utils.print_dict(guest)
+    else:
+        print guest
+
+
 @utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to get password')
 @utils.arg('--key', metavar='<PRIVATE_KEY>', help='Path to private key of specific keypair')
 def do_server_password(client, args):
