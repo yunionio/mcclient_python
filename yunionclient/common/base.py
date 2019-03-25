@@ -26,7 +26,7 @@ class Manager(object):
     etc.) and provide CRUD operations for them.
     """
     resource_class = None
-    service_type = 'compute'
+    service_type = 'compute_v2'
     is_admin_api = False
     _columns = None
     _admin_columns = None

@@ -74,6 +74,7 @@ from yunionclient.api import ec2credentials
 from yunionclient.api import services
 from yunionclient.api import endpoints
 from yunionclient.api import schedtags
+from yunionclient.api import metadatas
 
 logger = logging.getLogger(__name__)
 
@@ -160,6 +161,7 @@ class Client(http.HTTPClient):
         self.schedtag_hosts = schedtags.SchedtagHostManager(self)
 
         self.region_stats = RegionStatsManager(self)
+        self.metadatas = metadatas.MetadataManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
