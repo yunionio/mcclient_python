@@ -43,7 +43,7 @@ SDK调用方法
 
 示例代码：
 
-    import yunionclient
+    import yunionclient.api.client
 
     auth_url = "http://10.68.22.1:5000/v3"
     username = "sysadmin"
@@ -81,7 +81,7 @@ SDK调用方法
     print 'Server created', guest
 
     # 开机
-    client.guets.perform_action(guest['id'], 'start')
+    client.guests.perform_action(guest['id'], 'start')
 
     # 删除主机
     client.guests.delete(guest['id'])
