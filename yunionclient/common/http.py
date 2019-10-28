@@ -26,7 +26,7 @@ class HTTPClient(httplib2.Http):
         self.force_exception_to_status_code = True
 
     def http_log(self, args, kwargs, resp, body):
-        if os.environ.get('GLANCECLIENT_DEBUG', False):
+        if os.environ.get('YUNIONCLIENT_DEBUG', False):
             ch = logging.StreamHandler()
             logger.setLevel(logging.DEBUG)
             logger.addHandler(ch)
