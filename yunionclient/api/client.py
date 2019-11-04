@@ -75,6 +75,7 @@ from yunionclient.api import services
 from yunionclient.api import endpoints
 from yunionclient.api import schedtags
 from yunionclient.api import metadatas
+from yunionclient.api import loadbalancers
 
 logger = logging.getLogger(__name__)
 
@@ -162,6 +163,13 @@ class Client(http.HTTPClient):
 
         self.region_stats = RegionStatsManager(self)
         self.metadatas = metadatas.MetadataManager(self)
+        self.loadbalancers = loadbalancers.LoadbalancerManager(self)
+        self.loadbalancerlisteners = loadbalancers.LoadbalancerListenerManager(self)
+        self.loadbalancerlistenerrules = loadbalancers.LoadbalancerListenerRuleManager(self)
+        self.loadbalancercertificates = loadbalancers.LoadbalancerCertificateManager(self)
+        self.loadbalancerbackendgroups = loadbalancers.LoadbalancerBackendGroupManager(self)
+        self.loadbalancerbackends = loadbalancers.LoadbalancerBackendManager(self)
+        self.loadbalanceracls = loadbalancers.LoadbalancerAclManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region

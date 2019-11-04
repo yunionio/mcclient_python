@@ -9,4 +9,6 @@
 *.log
 ._*
 .apdisk
+.ropeproject
+*.egg-info
 build
