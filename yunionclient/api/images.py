@@ -10,7 +10,7 @@ from yunionclient.common.utils import url_unquote, url_quote
 class Image(base.ResourceBase):
 
     def _normalize_attribute_dict(self, attr_dict):
-        props = attr_dict.get('properties')
+        props = attr_dict.get('properties', {})
         new_props = {}
         for k, v in props.iteritems():
             while k.startswith('_') or k.startswith('-'):
