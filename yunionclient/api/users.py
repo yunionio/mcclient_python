@@ -27,8 +27,7 @@ class UserManager(base.IdentityManager):
     is_admin_api = True
     keyword = 'user'
     keyword_plural = 'users'
-    _columns = ['ID', 'Name', 'TenantId', 'Tenant_name', 'Enabled', 'Email',
-                        'Mobile']
+    _columns = ['ID', 'Name', 'Enabled', 'Email', 'Mobile']
 
     def update_password(self, uid, password):
         params = {self.keyword: {"id": uid, "password": password}}
