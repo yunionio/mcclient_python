@@ -171,6 +171,9 @@ class Client(http.HTTPClient):
         self.loadbalancerbackends = loadbalancers.LoadbalancerBackendManager(self)
         self.loadbalanceracls = loadbalancers.LoadbalancerAclManager(self)
 
+        self.loadbalancerclusters = loadbalancers.LoadbalancerClusterManager(self)
+        self.loadbalanceragents = loadbalancers.LoadbalancerAgentManager(self)
+
     def set_region(self, region, zone=None):
         self.region = region
         self.zone = zone

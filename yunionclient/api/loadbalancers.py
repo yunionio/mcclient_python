@@ -109,3 +109,22 @@ class LoadbalancerAclManager(base.StandaloneManager):
     _admin_columns = [
         'tenant',
     ]
+
+class LoadbalancerClusterManager(base.StandaloneManager):
+    keyword = 'loadbalancercluster'
+    keyword_plural = 'loadbalancerclusters'
+    _columns = [
+        "id",
+        "name",
+        "zone_id"
+    ]
+
+class LoadbalancerAgentManager(base.StandaloneManager):
+    keyword = 'loadbalanceragent'
+    keyword_plural = 'loadbalanceragents'
+    _columns = [
+        "id",
+        "name",
+        "cluster_id",
+        "params",
+    ]
