@@ -278,11 +278,6 @@ class StandaloneManager(Manager):
         return body[desc_cls.keyword]
 
 
-class IdentityManager(StandaloneManager):
-    service_type = 'identity'
-    _version = 'v2.0'
-
-
 class ImageManager(StandaloneManager):
     service_type = 'image'
     _version = 'v1'
@@ -330,6 +325,16 @@ class JointManager(Manager):
         return self._update(url, body, self.keyword)
 
 
+class IdentityManager(StandaloneManager):
+    service_type = 'identity'
+    _version = 'v3'
+
+
+class IdentityJointManager(JointManager):
+    service_type = 'identity'
+    _version = 'v3'
+
+
 class ResourceBase(object):
 
     def __init__(self, api, attr_dict):
@@ -351,6 +356,9 @@ class ResourceBase(object):
         if len(key) > 0 and key[0] != '_':
             return getattr(self, key, None)
         return None
+
+    def get(self, key):
+        return self[key]
 
     def to_dict(self):
         d = {}
