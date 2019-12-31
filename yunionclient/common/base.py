@@ -197,9 +197,13 @@ class StandaloneManager(Manager):
             url += '?' + utils.urlencode(kwargs)
         return self._list(url, self.keyword_plural)
 
-    def list_descendent(self, idstr, desc_cls, **kwargs):
-        url = r'/%s/%s/%s' % (self.keyword_plural_url(), idstr,
-                                desc_cls.keyword_plural_url())
+    def list_descendent(self, idstr, *args, **kwargs):
+        url = r'/%s/%s' % (self.keyword_plural_url(), idstr)
+        if len(args) > 1:
+            for i in range(0, len(args)-1, 2):
+                url += r'/%s/%s' % (args[i].keyword_plural_url(), args[i+1])
+        desc_cls = args[-1]
+        url += '/' + desc_cls.keyword_plural_url()
         kwargs = clean_kwargs(kwargs)
         if len(kwargs) > 0:
             url += '?' + utils.urlencode(kwargs)
@@ -209,12 +213,15 @@ class StandaloneManager(Manager):
         url = r'/%s/%s' % (self.keyword_plural_url(), idstr)
         return self._delete(url, self.keyword)
 
-    def delete_descendent(self, idstr, desc_cls, desc_idstr, **kwargs):
+    def delete_descendent(self, idstr, desc_cls, desc_idstr, *args, **kwargs):
         if desc_idstr is None:
             desc_idstr = '_'
         url = r'/%s/%s/%s/%s' % (self.keyword_plural_url(), idstr,
                                     desc_cls.keyword_plural_url(),
                                     desc_idstr)
+        if len(args) > 0:
+            for i in range(0, len(args), 2):
+                url += r'/%s/%s' % (args[i].keyword_plural_url(), args[i+1])
         kwargs = clean_kwargs(kwargs)
         if len(kwargs) > 0:
             url += '?' + utils.urlencode(kwargs)
@@ -242,11 +249,15 @@ class StandaloneManager(Manager):
             url = r'/%s/%s' % (self.keyword_plural_url(), idstr)
         return self._update(url, body, self.keyword)
 
-    def update_descendent(self, idstr, desc_cls, desc_idstr, **kwargs):
+    def update_descendent(self, idstr, desc_cls, desc_idstr, *args, **kwargs):
         if desc_idstr is None:
             desc_idstr = '_'
         url = r'/%s/%s/%s/%s' % (self.keyword_plural_url(), idstr,
                                     desc_cls.keyword_plural_url(), desc_idstr)
+        if len(args) > 0:
+            for i in range(0, len(args), 2):
+                url += r'/%s/%s' % (args[i].keyword_plural_url(), args[i+1])
+
         body = {}
         body[desc_cls.keyword] = kwargs
         return self._update(url, body, desc_cls.keyword)
