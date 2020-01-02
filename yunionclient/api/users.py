@@ -31,7 +31,7 @@ class UserManager(base.IdentityManager):
 
     def update_password(self, uid, password):
         params = {self.keyword: {"id": uid, "password": password}}
-        return self._update("/users/%s/OS-KSADM/password" % uid, params,
+        return self._update("/users/%s/password" % uid, params,
                             self.keyword)
 
     def roles_for_user(self, uid, tid=None):
@@ -41,7 +41,7 @@ class UserManager(base.IdentityManager):
         return self._list(url, 'roles', obj_class=Role)
 
     def add_role(self, uid, rid, tid=None):
-        url = r'/users/%s/roles/OS-KSADM/%s' % (uid, rid)
+        url = r'/users/%s/roles/%s' % (uid, rid)
         if tid:
             url = r'/tenants/%s%s' % (tid, url)
             keyword = 'role'
@@ -50,7 +50,7 @@ class UserManager(base.IdentityManager):
         return self._update(url, None, keyword, obj_class=Role)
 
     def remove_role(self, uid, rid, tid=None):
-        url = r'/users/%s/roles/OS-KSADM/%s' % (uid, rid)
+        url = r'/users/%s/roles/%s' % (uid, rid)
         if tid:
             url = r'/tenants/%s%s' % (tid, url)
         return self._delete(url, 'roles', obj_class=Role)
