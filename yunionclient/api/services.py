@@ -9,8 +9,8 @@ class Service(base.ResourceBase):
 class ServiceManager(base.IdentityManager):
     resource_class = Service
     is_admin_api = True
-    keyword = 'OS-KSADM:service'
-    keyword_plural = 'OS-KSADM:services'
+    keyword = 'service'
+    keyword_plural = 'services'
     _columns = ['ID', 'Name', 'Type', 'Description']
 
     def get_by_id_or_name(self, idstr):

@@ -114,7 +114,7 @@ class HTTPNotImplemented(ClientException):
 #
 # Instead, we have to hardcode it:
 _code_map = dict((c.http_status, c) for c in [BadRequest, Unauthorized,
-                   Forbidden, NotFound, NotAcceptable, OverLimit, 
+                   Forbidden, NotFound, NotAcceptable, Conflict, OverLimit,
                     HTTPInternalError, HTTPNotImplemented])
 
 

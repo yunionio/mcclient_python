@@ -1,7 +1,7 @@
 from yunionclient.common import base
 
-
-class GroupManager(base.StandaloneManager):
+class GroupManager(base.IdentityManager):
+    is_admin_api = True
     keyword = 'group'
     keyword_plural = 'groups'
-    _columns = ['ID', 'Name', 'Service_type', 'Parent_ID', 'Zone_ID', 'Zone', 'Tenant', 'Sched_Strategy']
+    _columns = ['ID', 'Name', 'Displayname']

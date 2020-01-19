@@ -28,7 +28,6 @@ from yunionclient.api import hoststorages
 
 from yunionclient.api import networks
 from yunionclient.api import disks
-from yunionclient.api import groups
 from yunionclient.api import guests
 from yunionclient.api import guestdisks
 from yunionclient.api import guestnetworks
@@ -69,7 +68,11 @@ from yunionclient.api.tenantinfo import TenantInfo, TenantInfoManager
 
 from yunionclient.api import users
 from yunionclient.api import tenants
+from yunionclient.api import projects
+from yunionclient.api import groups
 from yunionclient.api import roles
+from yunionclient.api import groupusers
+
 from yunionclient.api import ec2credentials
 from yunionclient.api import services
 from yunionclient.api import endpoints
@@ -116,8 +119,6 @@ class Client(http.HTTPClient):
 
         self.flavors = flavors.FlavorManager(self)
 
-        self.groups = groups.GroupManager(self)
-
         self.guests = guests.GuestManager(self)
 
         self.guestnetworks = guestnetworks.GuestnetworkManager(self)
@@ -142,7 +143,11 @@ class Client(http.HTTPClient):
 
         self.users = users.UserManager(self)
         self.tenants = tenants.TenantManager(self)
+        self.projects = projects.ProjectManager(self)
+        self.groups = groups.GroupManager(self)
         self.roles = roles.RoleManager(self)
+        self.groupusers = groupusers.GroupuserManager(self)
+
         self.ec2credentials = ec2credentials.EC2CredentialManager(self)
         self.services = services.ServiceManager(self)
         self.endpoints = endpoints.EndpointManager(self)
@@ -170,6 +175,9 @@ class Client(http.HTTPClient):
         self.loadbalancerbackendgroups = loadbalancers.LoadbalancerBackendGroupManager(self)
         self.loadbalancerbackends = loadbalancers.LoadbalancerBackendManager(self)
         self.loadbalanceracls = loadbalancers.LoadbalancerAclManager(self)
+
+        self.loadbalancerclusters = loadbalancers.LoadbalancerClusterManager(self)
+        self.loadbalanceragents = loadbalancers.LoadbalancerAgentManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region

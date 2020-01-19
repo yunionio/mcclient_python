@@ -5,15 +5,6 @@ from yunionclient.common import exceptions
 class Endpoint(base.ResourceBase):
     _region = None
 
-    def _get_service(self):
-        if getattr(self, '_service', None) is None:
-            self._service = self._client_api.services.get(self.service_id)
-        return self._service
-
-    @property
-    def service_name(self):
-        return self._get_service().name
-
     @property
     def region(self):
         pos = self._region.find('/')
