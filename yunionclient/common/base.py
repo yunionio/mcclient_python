@@ -91,13 +91,13 @@ class Manager(object):
     def _list(self, url, response_key, obj_class=None):
         resp, body = self.json_request('GET', url)
 
-        if body.has_key('total'):
+        if 'total' in body:
             total = body['total']
-            if body.has_key('limit'):
+            if 'limit' in body:
                 limit = body['limit']
             else:
                 limit = 0
-            if body.has_key('offset'):
+            if 'offset' in body:
                 offset = body['offset']
             else:
                 offset = 0
@@ -131,7 +131,7 @@ class Manager(object):
 
 def clean_kwargs(kwargs):
     newkw = {}
-    for k in kwargs.keys():
+    for k in list(kwargs.keys()):
         if kwargs[k] is not None:
             newkw[k] = kwargs[k]
     return newkw
@@ -351,7 +351,7 @@ class ResourceBase(object):
     def __init__(self, api, attr_dict):
         self._client_api = api
         attr_dict = self._normalize_attribute_dict(attr_dict)
-        for (k, v) in attr_dict.iteritems():
+        for (k, v) in attr_dict.items():
             attr_name = k.replace('-', '_')
             setattr(self, attr_name, v)
 
@@ -359,7 +359,7 @@ class ResourceBase(object):
         return attr_dict
 
     def __repr__(self):
-        reprkeys = sorted(k for k in self.__dict__.keys() if k[0] != '_')
+        reprkeys = sorted(k for k in list(self.__dict__.keys()) if k[0] != '_')
         info = ", ".join("%s=%s" % (k, getattr(self, k)) for k in reprkeys)
         return "<%s %s>" % (self.__class__.__name__, info)
 

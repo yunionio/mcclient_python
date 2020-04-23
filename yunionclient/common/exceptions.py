@@ -129,13 +129,13 @@ def from_response(response, body):
         if resp.status != 200:
             raise exception_from_response(resp, body)
     """
-    import utils
+    from . import utils
     cls = _code_map.get(response.status, ClientException)
     body_json = None
     if body is not None and len(body) > 0 and body[0] == '{':
         body_json = json.loads(body)
     if body_json:
-        if body_json.has_key('code') and body_json.has_key('details'):
+        if 'code' in body_json and 'details' in body_json:
             details = utils.ensure_ascii(body_json['details'])
             return cls(code=response.status, details=details)
         elif 'error' in body_json and 'code' in body_json['error'] and \

@@ -64,7 +64,7 @@ def do_flavor_create(client, args):
                 kwargs['aggregate.%d' % index] = aggregate
                 index += 1
             else:
-                print 'Aggregate format error: %s' % aggregate
+                print('Aggregate format error: %s' % aggregate)
                 return
     if args.flavor_type:
         kwargs['flavor_type'] = args.flavor_type
@@ -112,7 +112,7 @@ def do_flavor_update(client, args):
                 kwargs['aggregate.%d' % index] = aggregate
                 index += 1
             else:
-                print 'Aggregate format error: %s' % aggregate
+                print('Aggregate format error: %s' % aggregate)
                 return
     if args.flavor_type:
         kwargs['flavor_type'] = args.flavor_type
@@ -219,9 +219,9 @@ def do_keypair_privatekey(client, args):
     else:
         prikey = getattr(kp, 'private_key', None)
     if prikey is not None:
-        print prikey
+        print(prikey)
     else:
-        print "Key has been fetched"
+        print("Key has been fetched")
 
 
 @utils.arg('name', metavar='<KEYPAIR_NAME>', help='Name of keypair to be created')
@@ -1336,10 +1336,10 @@ def _show_usage_results(args, result):
         elif args.stat_func:
             utils.print_dict(result)
         else:
-            fields = sorted(result[0].keys(), cmp=lambda x, y: cmp(_g(x), _g(y)))
+            fields = sorted(list(result[0].keys()), cmp=lambda x, y: cmp(_g(x), _g(y)))
             utils.print_list(result, fields)
     else:
-        print "Empty set."
+        print("Empty set.")
 
 
 def _g(x):
@@ -1642,9 +1642,9 @@ def do_quota_check(client, args):
         raise Exception('No data to check')
     ret = client.quotas.check(args.tenant, **kwargs)
     if len(ret) > 0:
-        print ret
+        print(ret)
     else:
-        print 'Successful'
+        print('Successful')
 
 
 ################ IP ######################

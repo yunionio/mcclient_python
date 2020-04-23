@@ -108,7 +108,7 @@ def do_group_metadata(client, args):
     if isinstance(group, dict):
         utils.print_dict(group)
     else:
-        print group
+        print(group)
 
 
 @utils.arg('id', metavar='<SERVER>', help='ID of virtual server')

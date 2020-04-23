@@ -16,13 +16,14 @@
 import os
 import uuid
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 import logging
 import hashlib
 import mmap
 
 from yunionclient.common import exceptions
 from yunionclient.openstack.common import importutils
+from functools import reduce
 
 
 # Decorator for cli-args
@@ -40,7 +41,7 @@ def pretty_choice_list(l):
 
 
 def get_value_ignorecase(dictobj, key):
-    for k in dictobj.keys():
+    for k in list(dictobj.keys()):
         if k.lower() == key.lower():
             return dictobj[k]
     return None
@@ -72,7 +73,7 @@ def print_list(data, fields=None, formatters={}):
     if fields is None or len(fields) == 0:
         fields = []
         for o in objs:
-            for k in o.keys():
+            for k in list(o.keys()):
                 k = k.upper()
                 if k not in fields:
                     fields.append(k)
@@ -102,15 +103,15 @@ def print_list(data, fields=None, formatters={}):
         pt.add_row(row)
 
     data_fields = [f for f in fields if f in data_fields_tbl]
-    print pt.get_string(fields=data_fields) #sortby=fields[0])
+    print(pt.get_string(fields=data_fields)) #sortby=fields[0])
     if title is not None:
-        print '****', title, '****'
+        print('****', title, '****')
 
 
 def pretty_value(val):
     ret = ''
     if isinstance(val, dict):
-        for k, v in val.iteritems():
+        for k, v in val.items():
             if len(ret) > 0:
                 ret += ','
             ret += '%s:%s' % (k, pretty_value(v))
@@ -142,17 +143,17 @@ def print_dict(d):
         d = d.to_dict()
     elif not isinstance(d, dict):
         dd = {}
-        for k in d.__dict__.keys():
+        for k in list(d.__dict__.keys()):
             if k[0] != '_':
                 v = getattr(d, k)
                 if not callable(v):
                     dd[k] = v
         d = dd
-    for k, v in d.iteritems():
+    for k, v in d.items():
         v = pretty_value(v)
         row = [k, v]
         pt.add_row(row)
-    print pt.get_string(sortby='Property')
+    print(pt.get_string(sortby='Property'))
 
 
 def find_resource(manager, name_or_id):
@@ -223,7 +224,7 @@ def timestr_2_epoch(time_str, zone_index=8):
 
 def confirm(prompt=""):
     try:
-        c = raw_input(prompt).strip()
+        c = input(prompt).strip()
         a = ['', 'Y', 'y']
         if c in a:
             return True
@@ -233,15 +234,15 @@ def confirm(prompt=""):
 def urlencode(data):
     assert(isinstance(data, dict))
     kw_list = []
-    for k in data.keys():
+    for k in list(data.keys()):
         if data[k] is not None:
             if isinstance(data[k], list):
                 for v in data[k]:
                     kw_list.append({k: v})
             else:
                 kw_list.append({k: data[k]})
-    kw_list = sorted(kw_list, lambda x, y: cmp(x.keys()[0], y.keys()[0]))
-    return '&'.join(map(urllib.urlencode, kw_list))
+    kw_list = sorted(kw_list, lambda x, y: cmp(list(x.keys())[0], list(y.keys())[0]))
+    return '&'.join(map(urllib.parse.urlencode, kw_list))
 
 
 def import_dsa_private_key(str):
@@ -266,7 +267,7 @@ def export_dsa_public_key(key):
         else:
             return x
 
-    tup2 = map(func, tup1)
+    tup2 = list(map(func, tup1))
     keyparts = [str('ssh-dss')] + tup2
     keystring = str('').join(
                             [struct.pack(">I", len(kp)) + kp for kp in keyparts]
@@ -439,15 +440,15 @@ def td_total_seconds(td):
     return td.days*86400 + td.seconds
 
 def ensure_unicode(s):
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         s = '%s' % s
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         return s
     else:
         return s.decode('utf-8')
 
 def ensure_ascii(s):
-    if not isinstance(s, basestring):
+    if not isinstance(s, str):
         s = '%s' % s
     if isinstance(s, str):
         return s
@@ -463,7 +464,7 @@ def ensure_bool(s):
         else:
             return False
     else:
-        if not isinstance(s, basestring):
+        if not isinstance(s, str):
             s = '%s' % s
         if s.lower() in ['true', 'yes', '1']:
             return True
@@ -474,16 +475,16 @@ def ensure_bool(s):
 # Uniform Resource Identifier (URI): Generic Syntax
 # RFC 2396 is deprecated
 def url_quote(s):
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         s = s.encode('utf-8')
-    return urllib.quote(s)
+    return urllib.parse.quote(s)
 
 def url_unquote(s):
-    return urllib.unquote(s)
+    return urllib.parse.unquote(s)
 
 def url_join(*args):
-    args = map(ensure_ascii, args)
-    args = map(urllib.quote, args)
+    args = list(map(ensure_ascii, args))
+    args = list(map(urllib.parse.quote, args))
     return '/'.join(args)
 
 def file_get_contents(fn):

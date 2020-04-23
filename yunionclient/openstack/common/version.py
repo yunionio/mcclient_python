@@ -21,7 +21,7 @@ Utilities for consuming the auto-generated versioninfo files.
 import datetime
 import pkg_resources
 
-import setup
+from . import setup
 
 
 class _deferred_version_string(object):

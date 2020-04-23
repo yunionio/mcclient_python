@@ -1,6 +1,6 @@
 from yunionclient.common import base
 from yunionclient.common import exceptions
-from roles import Role
+from .roles import Role
 
 
 class User(base.ResourceBase):

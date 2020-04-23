@@ -83,7 +83,7 @@ def do_network_metadata(client, args):
     if isinstance(meta, dict):
         utils.print_dict(meta)
     else:
-        print meta
+        print(meta)
 
 
 @utils.arg('id', metavar='<NETWORK_ID>', help='ID of virtual network to get metadata info')

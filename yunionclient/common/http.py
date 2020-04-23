@@ -67,20 +67,20 @@ class HTTPClient(httplib2.Http):
 
     def _get_urllib2_raw_request(self, endpoint, auth_token, method, url,
                                     **kwargs):
-        import urllib2
+        import urllib.request, urllib.error, urllib.parse
         url = endpoint + url
         url = url.encode('UTF-8')
-        req = urllib2.Request(url)
+        req = urllib.request.Request(url)
         headers = copy.deepcopy(kwargs.get('headers', {}))
         headers.setdefault('User-Agent', USER_AGENT)
         headers.setdefault('Connection', 'Close')
         if auth_token:
             headers.setdefault('X-Auth-Token', auth_token)
-        for h in headers.keys():
+        for h in list(headers.keys()):
             req.add_header(h, headers[h])
-        if kwargs.has_key('body'):
+        if 'body' in kwargs:
             req.add_data(kwargs['body'])
-        return urllib2.urlopen(req)
+        return urllib.request.urlopen(req)
 
     def _http_request(self, endpoint, auth_token, url, method, **kwargs):
         """ Send an http request with the specified characteristics.

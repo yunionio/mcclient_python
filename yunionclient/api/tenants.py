@@ -1,6 +1,6 @@
 from yunionclient.common import base
 
-from users import User
+from .users import User
 
 
 class Tenant(base.ResourceBase):
