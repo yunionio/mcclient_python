@@ -241,7 +241,7 @@ def urlencode(data):
                     kw_list.append({k: v})
             else:
                 kw_list.append({k: data[k]})
-    kw_list = sorted(kw_list, lambda x, y: cmp(list(x.keys())[0], list(y.keys())[0]))
+    kw_list = sorted(kw_list, key=lambda x: list(x.keys())[0])
     return '&'.join(map(urllib.parse.urlencode, kw_list))
 
 

@@ -1336,7 +1336,7 @@ def _show_usage_results(args, result):
         elif args.stat_func:
             utils.print_dict(result)
         else:
-            fields = sorted(list(result[0].keys()), cmp=lambda x, y: cmp(_g(x), _g(y)))
+            fields = sorted(list(result[0].keys()), key=lambda x: _g(x))
             utils.print_list(result, fields)
     else:
         print("Empty set.")
