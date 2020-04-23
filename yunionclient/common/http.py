@@ -87,8 +87,6 @@ class HTTPClient(httplib2.Http):
         Wrapper around httplib2.Http.request to handle tasks such as
         setting headers, JSON encoding/decoding, and error handling.
         """
-        if isinstance(url, str):
-            url = url.decode('UTF-8')
         url = endpoint + url
 
         # Copy the kwargs so we can reuse the original in case of redirects
