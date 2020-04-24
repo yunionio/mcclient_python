@@ -333,7 +333,7 @@ def do_zone_update_metadata(client, args):
 @utils.arg('--contacts', metavar='<ZONE_CONTACTS>', help='Contacts of zone')
 @utils.arg('--manager-uri', metavar='ZONE_MANAGER_URI>', help='Zone manager URI')
 @utils.arg('--admin-id', metavar='<ADMIN_TENANT_ID>', help='Admin tenant ID')
-@utils.arg('--status', metavar='<ZONE_STATUS>', choices=['enable', 'disable', 'soldout', 'lack'], default='disable')
+@utils.arg('--status', metavar='<ZONE_STATUS>', choices=['enable', 'disable', 'soldout', 'lack'])
 def do_zone_update(client, args):
     """ Update a zone """
     kwargs = {}
@@ -355,7 +355,7 @@ def do_zone_update(client, args):
         kwargs['status'] = args.status
 
     if len(kwargs) == 0:
-        raise "Nothing to update"
+        raise Exception("Nothing to update")
     zone = client.zones.update(args.id, **kwargs)
     utils.print_dict(zone)
 
