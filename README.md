@@ -2,7 +2,7 @@ YunionCloud Python Client SDK
 ===================================
 
 
-本仓库提供了访问YunionCloud API的python SDK以及基于该SDK的climc客户端代码。
+本仓库提供了访问YunionCloud API的Python 3 SDK以及基于该SDK的climc客户端代码。
 
 
 命令行使用方法
@@ -32,7 +32,7 @@ SDK调用方法
 
 首先安装yunionclient，执行
 
-    sudo python setup.py install
+    sudo python3 setup.py install
 
 依赖安装包：
 
@@ -91,4 +91,4 @@ SDK调用方法
 
 
 
-北京云联万维技术有限公司 2017-2018
+北京云联万维技术有限公司 © 2017-2020
