@@ -44,7 +44,7 @@ def canonicalize_emails(changelog, mapping):
     """Takes in a string and an email alias mapping and replaces all
        instances of the aliases in the string with their real email.
     """
-    for alias, email in mapping.iteritems():
+    for alias, email in mapping.items():
         changelog = changelog.replace(alias, email)
     return changelog
 
@@ -270,7 +270,7 @@ def get_cmdclass():
 
         class LocalBuildDoc(BuildDoc):
             def generate_autoindex(self):
-                print "**Autodocumenting from %s" % os.path.abspath(os.curdir)
+                print("**Autodocumenting from %s" % os.path.abspath(os.curdir))
                 modules = {}
                 option_dict = self.distribution.get_option_dict('build_sphinx')
                 source_dir = os.path.join(option_dict['source_dir'][1], 'api')
@@ -279,7 +279,7 @@ def get_cmdclass():
                 for pkg in self.distribution.packages:
                     if '.' not in pkg:
                         os.path.walk(pkg, _find_modules, modules)
-                module_list = modules.keys()
+                module_list = list(modules.keys())
                 module_list.sort()
                 autoindex_filename = os.path.join(source_dir, 'autoindex.rst')
                 with open(autoindex_filename, 'w') as autoindex:
@@ -295,7 +295,7 @@ def get_cmdclass():
                         values = dict(module=module, heading=heading,
                                       underline=underline)
 
-                        print "Generating %s" % output_filename
+                        print("Generating %s" % output_filename)
                         with open(output_filename, 'w') as output_file:
                             output_file.write(_rst_template % values)
                         autoindex.write("   %s.rst\n" % module)

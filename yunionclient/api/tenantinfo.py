@@ -16,12 +16,12 @@ class TenantInfoManager(object):
 
     def get_tenants(self):
         tenants = []
-        for v in self.tenants.values():
+        for v in list(self.tenants.values()):
             tenants.append({'id': v.get_id(), 'name': v.get_name()})
         return tenants
 
     def get_tenant(self, tenant_name=None, tenant_id=None):
-        for t in self.tenants.values():
+        for t in list(self.tenants.values()):
             if tenant_id is not None and len(tenant_id) > 0:
                 if t.get_id() == tenant_id and not t.expire_soon():
                     return t
@@ -38,7 +38,7 @@ class TenantInfoManager(object):
 
     def to_json(self):
         desc = []
-        for t in self.tenants.values():
+        for t in list(self.tenants.values()):
             desc.append(t.to_json())
         return desc
 
@@ -118,7 +118,7 @@ class TenantInfo(object):
                 elif endpoint['interface'] == 'internal':
                     regions[region]['internalURL'] = endpoint['url']
         ret = []
-        for region, urls in regions.iteritems():
+        for region, urls in regions.items():
             urls['region'] = region
             ret.append(urls)
         return ret
@@ -152,7 +152,7 @@ class TenantInfo(object):
                     regions[region]['%sURL' % ep['interface']] = ep['url']
                 if region is None:
                     if len(regions) == 1:
-                        for v in regions.values():
+                        for v in list(regions.values()):
                             return v[ep_type]
                     else:
                         raise Exception('No default region')
@@ -197,7 +197,7 @@ class TenantInfo(object):
     def from_json(self, desc):
         self.id = desc['id']
         self.name = desc['name']
-        if desc.has_key('token') and desc.has_key('catalog'):
+        if 'token' in desc and 'catalog' in desc:
             user = desc.get('user', None)
             self.set_access_info(desc['token'], desc['catalog'], user,
                                                             no_check=True)

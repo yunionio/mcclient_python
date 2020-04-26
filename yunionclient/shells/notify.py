@@ -22,9 +22,9 @@ def do_notify(client, args):
                 raise Exception('Data must be key:value')
     ret = client.notify.notify(args.to, args.topic, args.priority, **kwargs)
     if ret:
-        print 'Delivered'
+        print('Delivered')
     else:
-        print 'Fail to deliver'
+        print('Fail to deliver')
 
 @utils.arg('--replaced', metavar='<REPLACED>', action='append', help='Replaced options of monitor info')
 @utils.arg('--prefix', action='store_true', help='Enable/disable resource id prefix')
@@ -47,9 +47,9 @@ def do_monitor_notify(client, args):
     kwargs['replaced_options']  = replaced
     ret = client.notify.monitor_notify(**kwargs)
     if ret:
-        print 'Delivered'
+        print('Delivered')
     else:
-        print 'Fail to deliver'
+        print('Fail to deliver')
 
 @utils.arg('--user', metavar='<USER>', help='User ID or Name, only for admin')
 @utils.arg('--date', metavar='<DATE>', help='UTC-Date for list quota usage and default is now, usage: yyyy-mm')
@@ -60,7 +60,7 @@ def do_notify_quota_list(client, args):
     if args.date is not None:
         import re
         if not re.match(r'^\d{4}-\d{2}$', args.date):
-            print 'Usage: notify-quota-list [--user xx] [--date yyyy-mm]'
+            print('Usage: notify-quota-list [--user xx] [--date yyyy-mm]')
             return
         params['datetime'] = args.date
     items = client.notify_quota.list(**params)
@@ -75,12 +75,12 @@ def do_notify_quota_update(client, args):
         params['user'] = args.user
     if args.email is not None:
         if args.email < 0:
-            print '<EMAIL> must be positive integer'
+            print('<EMAIL> must be positive integer')
             return
         params['email'] = args.email
     if args.sms is not None:
         if args.sms < 0:
-            print '<SMS> must be positive integer'
+            print('<SMS> must be positive integer')
             return
         params['sms'] = args.sms
     update_info = client.notify_quota.update(idstr=None, **params)

@@ -12,7 +12,7 @@ class Image(base.ResourceBase):
     def _normalize_attribute_dict(self, attr_dict):
         props = attr_dict.get('properties', {})
         new_props = {}
-        for k, v in props.iteritems():
+        for k, v in props.items():
             while k.startswith('_') or k.startswith('-'):
                 k = k[1:]
             k = k.replace('-', '_')
@@ -81,7 +81,7 @@ class ImageManager(base.ImageManager):
     def get_meta(self, headers):
         meta = {}
         meta['properties'] = {}
-        for (k, v) in headers.iteritems():
+        for (k, v) in headers.items():
             if k.startswith(self._meta_property_prefix):
                 kn = k[len(self._meta_property_prefix) + 1:]
                 meta['properties'][kn] = v
@@ -92,13 +92,13 @@ class ImageManager(base.ImageManager):
 
     def set_meta(self, meta):
         headers = {}
-        for (k, v) in meta.iteritems():
+        for (k, v) in meta.items():
             headers['%s-%s' % (self._meta_prefix, k)] = v
         return headers
 
     def set_property_meta(self, meta):
         headers = {}
-        for (k, v) in meta.iteritems():
+        for (k, v) in meta.items():
             headers['%s-%s' % (self._meta_property_prefix, k)] = v
         return headers
 
@@ -110,7 +110,7 @@ class ImageManager(base.ImageManager):
 
     def get_by_id(self, image_id):
         resp, body = self.json_request('HEAD', r'/images/%s' % image_id)
-        for k, v in resp.iteritems():
+        for k, v in resp.items():
             resp[k] = url_unquote(v)
         return self._dict_to_object(self.get_meta(resp), None)
 
@@ -154,21 +154,21 @@ class ImageManager(base.ImageManager):
         headers = self.set_meta(kwargs)
         if img.properties is not None and len(img.properties) > 0:
             headers.update(self.set_property_meta(img.properties))
-        for k, v in headers.iteritems():
+        for k, v in headers.items():
             headers[k] = url_quote(v)
         resp, body = self.json_request('PUT', r'/images/%s' % idstr,
                             headers=headers)
-        for k, v in resp.iteritems():
+        for k, v in resp.items():
             resp[k] = url_unquote(v)
         return self._dict_to_object(body[self.keyword], None)
 
     def update_properties(self, idstr, **kwargs):
         headers = self.set_property_meta(kwargs)
-        for k, v in headers.iteritems():
+        for k, v in headers.items():
             headers[k] = url_quote(v)
         resp, body = self.json_request('PUT', r'/images/%s' % idstr,
                             headers=headers)
-        for k, v in resp.iteritems():
+        for k, v in resp.items():
             resp[k] = url_unquote(v)
         return self._dict_to_object(body[self.keyword], None)
 

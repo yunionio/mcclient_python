@@ -12,6 +12,7 @@ import yunionclient.api.client
 from yunionclient import __version__
 from yunionclient.common import exceptions as exc
 from yunionclient.common import utils
+import importlib
 
 
 class APIShell(object):
@@ -179,9 +180,9 @@ class APIShell(object):
 
     def main(self, argv, flag):
         if not argv and flag==1:
-            print 'Welcome to yunionclient interactive mode. version %s' % __version__
-            print 'Type "help" for help or "help COMMAND" for a specific command.'
-            print 'Enter "quit/exit" to exit console.'
+            print('Welcome to yunionclient interactive mode. version %s' % __version__)
+            print('Type "help" for help or "help COMMAND" for a specific command.')
+            print('Enter "quit/exit" to exit console.')
             return 0
 
         # Parse args once to find version
@@ -195,7 +196,7 @@ class APIShell(object):
 
         # Prompt the user for text
         if flag == 2:
-            input_cmd = raw_input("yunion_cli> ")
+            input_cmd = input("yunion_cli> ")
             if input_cmd is None:
                 return None
             else:
@@ -207,8 +208,8 @@ class APIShell(object):
 
             try:
                 argv = shlex.split(input_cmd, posix=True)
-            except ValueError, e:
-                print 'args parse error: %s' % e
+            except ValueError as e:
+                print('args parse error: %s' % e)
                 return 0
 
         # Handle top-level --help/-h before attempting to parse
@@ -279,7 +280,7 @@ class APIShell(object):
         except exc.Unauthorized:
             raise exc.CommandError("Invalid Keystone credentials.")
         except exc.ClientException as e:
-            print e
+            print(e)
             if flag == 1 and argv:
                 sys.exit(-1)
 
@@ -298,7 +299,7 @@ class APIShell(object):
         else:
             self.parser.print_help()
 
-        print 'Enter \"quit/exit\" to exit console.'
+        print('Enter \"quit/exit\" to exit console.')
 
     def get_options(self, argv):
         """
@@ -349,7 +350,7 @@ class BufferAwareCompleter(object):
                 try:
                     if begin == 0:
                         # first word
-                        candidates = self.options.keys()
+                        candidates = list(self.options.keys())
                     else:
                         # later word
                         first = words[0]
@@ -360,7 +361,7 @@ class BufferAwareCompleter(object):
                     else:
                         # matching empty string so use all candidates
                         self.current_candidates = candidates
-                except (KeyError, IndexError), err:
+                except (KeyError, IndexError) as err:
                     self.current_candidates = []
                     raise err
         try:
@@ -374,7 +375,7 @@ def setup_utf8():
     default_encoding = 'utf-8'
 
     if sys.getdefaultencoding() != default_encoding:
-        reload(sys)
+        importlib.reload(sys)
         sys.setdefaultencoding(default_encoding)
 
 
@@ -398,9 +399,9 @@ def main():
                 cli_flag = 2
             else:
                 break
-        except Exception, e:
+        except Exception as e:
             if httplib2.debuglevel == 1:
                 raise
             else:
-                print >> sys.stderr, e
+                print(e, file=sys.stderr)
             sys.exit(1)

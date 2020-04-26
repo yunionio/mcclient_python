@@ -123,7 +123,7 @@ def do_image_update_property(client, args):
         if len(args.notes) == 0:
             kwargs.pop('notes', None)
         else:
-            if isinstance(args.notes, unicode):
+            if isinstance(args.notes, str):
                 notes = args.notes.encode('utf-8')
             else:
                 notes = args.notes

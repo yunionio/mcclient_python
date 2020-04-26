@@ -64,7 +64,7 @@ def do_scheduler_test(client, args):
                     kwargs['aggregate.%d' % index] = aggregate
                     index += 1
                 else:
-                    print 'Aggregate format error: %s' % aggregate
+                    print('Aggregate format error: %s' % aggregate)
                     return
         if args.cluster:
             kwargs['prefer_cluster'] = args.cluster

@@ -327,7 +327,7 @@ def do_baremetal_metadata(client, args):
     if isinstance(obj, dict):
         utils.print_dict(obj)
     else:
-        print obj
+        print(obj)
 
 @utils.arg('id', metavar='<BAREMETAL>', help='ID of baremetal')
 def do_baremetal_vnc(client, args):
@@ -459,7 +459,7 @@ def do_baremetal_server_create(client, args):
         kwargs['is_system'] = True
 
     if args.deploy is not None:
-        import servers
+        from . import servers
         servers.parse_deploy_info(args.deploy, kwargs)
 
     if args.baremetal_host:

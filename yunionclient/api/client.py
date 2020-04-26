@@ -233,11 +233,11 @@ class Client(http.HTTPClient):
         resp, body = self._json_request(self.auth_url, None,
                                             'POST', '/tokens', body=body)
         # print json.dumps(body, indent=4)
-        if body.has_key('access'):
+        if 'access' in body:
             token = body['access']['token']
             catalog = body['access']['serviceCatalog']
             user = body['access']['user']
-            if token.has_key('tenant'):
+            if 'tenant' in token:
                 self.default_tenant = TenantInfo(None, None)
                 # print 'Token:', token
                 self.default_tenant.set_access_info(token, catalog, user)
@@ -253,7 +253,7 @@ class Client(http.HTTPClient):
         try:
             resp, body = self._json_request(self.auth_url, token,
                                             'GET', '/tenants')
-            if body.has_key('tenants'):
+            if 'tenants' in body:
                 for t in body['tenants']:
                     self.tenants_info_manager.add_tenant(TenantInfo(t['id'],
                                                                     t['name']))
@@ -345,7 +345,7 @@ class Client(http.HTTPClient):
         self.set_region(desc['region'], desc.get('zone', None))
         self.tenants_info_manager = TenantInfoManager()
         self.tenants_info_manager.from_json(desc['tenants'])
-        if desc.has_key('default_tenant_id'):
+        if 'default_tenant_id' in desc:
             self.set_tenant(tenant_id=desc['default_tenant_id'])
 
     def to_file(self, filename):

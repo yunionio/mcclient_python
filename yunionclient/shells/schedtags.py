@@ -125,7 +125,7 @@ def do_schedtag_host_list_by_metadata(client, args):
         schedtag_detail = client.schedtags.get(schedtag['id'], with_meta=True)
         if 'metadata' in schedtag_detail:
             metadata = schedtag_detail['metadata']
-            for k, v in metadata.iteritems():
+            for k, v in metadata.items():
                 if args.key == k:
                     target_agg_ids.append(schedtag['id'])
     for schedtag in target_agg_ids:

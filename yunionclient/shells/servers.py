@@ -209,7 +209,7 @@ def do_server_create(client, args):
                     kwargs['aggregate.%d' % index] = aggregate
                     index += 1
                 else:
-                    print 'Aggregate format error: %s' % aggregate
+                    print('Aggregate format error: %s' % aggregate)
                     return
     if args.tenant:
         kwargs['tenant'] = args.tenant
@@ -241,10 +241,10 @@ def do_server_create(client, args):
 
     if args.user_data:
         if not os.path.exists(args.user_data):
-            print 'User data file:%s not found' % args.user_data
+            print('User data file:%s not found' % args.user_data)
             return
         if os.path.getsize(args.user_data) > 16*1024:
-            print 'User data is limited to 16 KB. '
+            print('User data is limited to 16 KB. ')
             return
 
         import base64
@@ -431,7 +431,7 @@ def do_server_metadata(client, args):
     if isinstance(guest, dict):
         utils.print_dict(guest)
     else:
-        print guest
+        print(guest)
 
 
 @utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to set metadata info')
@@ -451,7 +451,7 @@ def do_server_set_tag(client, args):
     if isinstance(guest, dict):
         utils.print_dict(guest)
     else:
-        print guest
+        print(guest)
 
 
 @utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to set metadata info')
@@ -471,7 +471,7 @@ def do_server_add_tag(client, args):
     if isinstance(guest, dict):
         utils.print_dict(guest)
     else:
-        print guest
+        print(guest)
 
 
 @utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to get password')
@@ -486,11 +486,11 @@ def do_server_password(client, args):
                 idstr = guest['id']
             else:
                 idstr = guest.id
-            print utils.decrypt_aes_base64(idstr, secret)
+            print(utils.decrypt_aes_base64(idstr, secret))
         elif os.path.exists(args.key):
             with open(args.key) as f:
                 privkey = f.read()
-                print utils.decrypt_base64(privkey, secret)
+                print(utils.decrypt_base64(privkey, secret))
         else:
             raise Exception('Key file not found')
     else:
@@ -523,7 +523,7 @@ def do_server_syncstatus(client, args):
 def do_server_monitor(client, args):
     """ Show monitor info of a virtual server """
     guest = client.guests.get_specific(args.id, 'monitor', command=args.cmd)
-    print guest['results']
+    print(guest['results'])
 
 
 @utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to get monitor info')
@@ -808,7 +808,7 @@ def do_server_add_network_service(client, args):
         kwargs['port'] = args.port
     roles = client.guests.perform_action(args.id, 'add-network-service',
                                                         **kwargs)
-    print roles
+    print(roles)
 
 
 @utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server')
@@ -822,7 +822,7 @@ def do_server_remove_network_service(client, args):
         kwargs['port'] = args.port
     roles = client.guests.perform_action(args.id, 'remove-network-service',
                                                             **kwargs)
-    print roles
+    print(roles)
 
 
 @utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server')
@@ -910,10 +910,10 @@ def do_server_set_apptags(client, args):
 def do_server_set_user_data(client, args):
     """ Set User Data """
     if not os.path.exists(args.file):
-        print 'user data file:%s not found' % args.file
+        print('user data file:%s not found' % args.file)
         return
     if os.path.getsize(args.file) > 16*1024:
-        print 'User data is limited to 16 KB. '
+        print('User data is limited to 16 KB. ')
         return
 
     import base64

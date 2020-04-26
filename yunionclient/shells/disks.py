@@ -176,4 +176,4 @@ def do_disk_metadata(client, args):
     if isinstance(disk, dict):
         utils.print_dict(disk)
     else:
-        print disk
+        print(disk)
