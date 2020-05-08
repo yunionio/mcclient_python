@@ -102,10 +102,10 @@ class ImageManager(base.ImageManager):
             headers['%s-%s' % (self._meta_property_prefix, k)] = v
         return headers
 
-    def list(self, params={}):
-        url = r'/images/detail'
-        if len(params) > 0:
-            url += '?' + utils.urlencode(params)
+    def list(self, **kwargs):
+        url = r'/images'
+        if len(kwargs) > 0:
+            url += '?' + utils.urlencode(kwargs)
         return self._list(url, self.keyword_plural)
 
     def get_by_id(self, image_id):

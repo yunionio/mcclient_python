@@ -37,7 +37,7 @@ def do_image_list(client, args):
     if args.history is not None and args.history:
         kwargs['history'] = args.history
 
-    images = client.images.list(kwargs)
+    images = client.images.list(**kwargs)
     utils.print_list(images, client.images.columns)
 
 
@@ -53,8 +53,8 @@ def do_image_show(client, args):
 @utils.arg('--public', action='store_true', help='Make public')
 @utils.arg('--private', action='store_true', help='Make private')
 @utils.arg('--format', metavar='<IMAGE_FORMAT>', choices=['raw', 'qcow2', 'iso'], help='Format of image')
-@utils.arg('--min-disk', metavar='<MIN_DISK_SIZE_MB>', type=int, help='Disk size after expanded, in MB') 
-@utils.arg('--min-ram', metavar='<MIN_RAM_MB>', type=int, help='Minimal memory size required') 
+@utils.arg('--min-disk', metavar='<MIN_DISK_SIZE_MB>', type=int, help='Disk size after expanded, in MB')
+@utils.arg('--min-ram', metavar='<MIN_RAM_MB>', type=int, help='Minimal memory size required')
 def do_image_update(client, args):
     """ Update a disk image on glance server """
     img = client.images.get(args.id)
