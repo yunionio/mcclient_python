@@ -43,52 +43,89 @@ SDK调用方法
 
 示例代码：
 
-    import yunionclient.api.client
+```python
+#!/usr/bin/env python3
+# -*- encoding: utf-8 -*-
 
-    auth_url = "http://10.68.22.1:5000/v3"
-    username = "sysadmin"
-    password = "MXX2VKe067jtD"
-    project = "system"
-    domain = "Default"
-    region = "LocalTest"
-    timeout = 600 # 超时10分钟
-    client = yunionclient.api.client.Client(auth_url,
-                                        username,
-                                        password,
-                                        domain,
-                                        region=region,
-                                        timeout=timeout,
-                                        insecure=True)
+import yunionclient.api.client
 
-    if not client.set_project(project_name=project):
-        raise Exception('Invalid keystone credential')
+desc = {
+    'project_name': 'system',
+    'project_id': None,
+    'args': (
+        'https://nn.nnn.nnn.nnn:30357/v3',  # auth_url
+        'sysadmin',                         # username
+        'pppppppppppppppp',                 # password
+        None,                               # domain
+    ),
+    'kwargs': {
+        'region': 'YunionHQ',
+        'zone': None,
+        'insecure': True,
+        'endpoint_type': 'publicURL',
+    },
+}
 
-    # 列出所有模板镜像
-    imgs = client.images.list(is_public='true')
-    if len(imgs) <= 0:
-        raise Exception('No valid image')
+args = desc['args']
+kwargs = desc['kwargs']
+client = yunionclient.api.client.Client(*args, **kwargs)
+project_name = desc.get('project_name')
+project_id = desc.get('project_id')
+if project_name is not None or project_id is not None:
+    client.set_project(project_name=project_name, project_id=project_id)
 
-    # 使用第一个镜像创建一台主机
-    img_id = imgs[0]['id']
-    params = {}
-    params['name'] = 'test'
-    params['vmem_size'] = '2g' # 虚拟机内存2g
-    params['vcpu_count'] = 2
-    params['disk.0'] = img_id
-    params['disk.1'] = '40g'
-    params['hypervisor'] = 'esxi'
-    guest = client.guests.create(**params)
-    print 'Server created', guest
+# List all public images
+imgs, total, limit, offset = client.images.list(is_public='false')
+if len(imgs) == 0:
+    raise Exception('No image found')
 
-    # 开机
-    client.guests.perform_action(guest['id'], 'start')
+def waitStatus(guest, xstatus):
+	import time
+	while True:
+		time.sleep(1)
+		guest = client.guests.get(guest['id'])
+		status = guest['status']
+		print('guest status: {}'.format(status))
+		if status in xstatus:
+			return
 
-    # 删除主机
-    client.guests.delete(guest['id'])
-    print 'server deleted', guest
+# Create a guest server with the 1st image in the list
+img_id = imgs[0]['id']
+params = {}
+params['name'] = 'test'
+params['vcpu_count'] = 1
+params['vmem_size'] = 64 # memory size 64MB
+params['disable_delete'] = False
+params['disks'] = [
+    {
+        'index': 0,
+        'image_id': img_id,	# rootfs for operating system
+    },
+    {
+        'index': 1,
+        'size': '1024',		# data disk 1024MB
+    },
+]
 
+guest = client.guests.create(**params)
+print('guest created:', guest)
 
+print('start guest when it\'s ready')
+waitStatus(guest, ['ready'])
+client.guests.perform_action(guest['id'], 'start')
+waitStatus(guest, ['running'])
 
+print('put it into recycle bin (pending_deleted=True)')
+client.guests.delete(guest['id'])
+waitStatus(guest, ['ready'])
 
+print('real delete it to actually reclaim resources')
+client.guests.delete(guest['id'], override_pending_delete=True)
+from yunionclient.common import exceptions
+try:
+	waitStatus(guest, [])
+except exceptions.NotFound:
+	print('guest deleted')
+```
 
 北京云联万维技术有限公司 © 2017-2020
