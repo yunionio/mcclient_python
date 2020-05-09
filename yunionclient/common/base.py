@@ -209,8 +209,11 @@ class StandaloneManager(Manager):
             url += '?' + utils.urlencode(kwargs)
         return self._list(url, desc_cls.keyword_plural)
 
-    def delete(self, idstr):
+    def delete(self, idstr, **kwargs):
         url = r'/%s/%s' % (self.keyword_plural_url(), idstr)
+        kwargs = clean_kwargs(kwargs)
+        if len(kwargs) > 0:
+            url += '?' + utils.urlencode(kwargs)
         return self._delete(url, self.keyword)
 
     def delete_descendent(self, idstr, desc_cls, desc_idstr, *args, **kwargs):
