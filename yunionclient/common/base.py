@@ -231,13 +231,23 @@ class StandaloneManager(Manager):
         return self._delete(url, desc_cls.keyword)
 
     def create(self, **kwargs):
+        return self.batch_create(self, 1, **kwargs)
+
+    def batch_create(self, count_, **kwargs):
         body = {}
         body[self.keyword] = kwargs
+        if count_ > 1:
+            body['count'] = count_
         url = r'/%s' % (self.keyword_plural_url())
         return self._create(url, body, self.keyword)
 
     def create_descendent(self, idstr, desc_cls, **kwargs):
+        return self.batch_create_descendent(idstr, desc_cls, 1, **kwargs)
+
+    def batch_create_descendent(self, idstr, desc_cls, count_, **kwargs):
         body = {}
+        if count_ > 1:
+            body['count'] = count_
         body[desc_cls.keyword] = kwargs
         url = r'/%s/%s/%s' % (self.keyword_plural_url(), idstr,
                                     desc_cls.keyword_plural_url())
