@@ -110,6 +110,8 @@ params['disks'] = [
 # To do batch create, call client.guests.batch_create(3, **params).  When count
 # is greater than 1, the returned value will be a list of created guests
 guest = client.guests.create(**params)
+if isinstance(guest, list) and len(guest) > 0:
+    guest = guest[0]['body']
 print('guest created:', guest)
 
 print('start guest when it\'s ready')
