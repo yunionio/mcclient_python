@@ -234,24 +234,28 @@ class StandaloneManager(Manager):
         return self.batch_create(1, **kwargs)
 
     def batch_create(self, count_, **kwargs):
+        resp_key = self.keyword
         body = {}
         body[self.keyword] = kwargs
         if count_ > 1:
+            resp_key = self.keyword_plural
             body['count'] = count_
         url = r'/%s' % (self.keyword_plural_url())
-        return self._create(url, body, self.keyword)
+        return self._create(url, body, resp_key)
 
     def create_descendent(self, idstr, desc_cls, **kwargs):
         return self.batch_create_descendent(idstr, desc_cls, 1, **kwargs)
 
     def batch_create_descendent(self, idstr, desc_cls, count_, **kwargs):
+        resp_key = self.keyword
         body = {}
         if count_ > 1:
+            resp_key = self.keyword_plural
             body['count'] = count_
         body[desc_cls.keyword] = kwargs
         url = r'/%s/%s/%s' % (self.keyword_plural_url(), idstr,
                                     desc_cls.keyword_plural_url())
-        return self._create(url, body, desc_cls.keyword)
+        return self._create(url, body, resp_key)
 
     def update(self, idstr, **kwargs):
         body = {}
