@@ -231,7 +231,7 @@ class StandaloneManager(Manager):
         return self._delete(url, desc_cls.keyword)
 
     def create(self, **kwargs):
-        return self.batch_create(self, 1, **kwargs)
+        return self.batch_create(1, **kwargs)
 
     def batch_create(self, count_, **kwargs):
         body = {}
