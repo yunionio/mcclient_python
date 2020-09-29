@@ -167,6 +167,9 @@ class StandaloneManager(Manager):
     def set_metadata(self, idstr, **kwargs):
         return self.perform_action(idstr, 'metadata', **kwargs)
 
+    def set_user_metadata(self, idstr, **kwargs):
+        return self.perform_action(idstr, 'user-metadata', **kwargs)
+
     def get_descendent(self, idstr, desc_cls, desc_idstr, **kwargs):
         if desc_idstr is None:
             desc_idstr = '_'

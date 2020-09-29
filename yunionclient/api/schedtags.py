@@ -2,7 +2,12 @@ import yunionclient
 from yunionclient.common import base
 
 
+class Schedtag(base.ResourceBase):
+    pass
+
+
 class SchedtagManager(base.StandaloneManager):
+    resource_class = Schedtag
     keyword = 'schedtag'
     keyword_plural = 'schedtags'
     _columns = ['ID', 'Name', 'Default_strategy']
