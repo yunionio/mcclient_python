@@ -1,7 +1,11 @@
 from yunionclient.common import base
 
+class Guest(base.ResourceBase):
+    pass
+
 
 class GuestManager(base.StandaloneManager):
+    resource_class = Guest
     keyword = 'server'
     keyword_plural = 'servers'
     _columns = ['ID', 'Name', 'Billing_type', 'IPs', 'Disk', 'Status',

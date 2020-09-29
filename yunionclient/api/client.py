@@ -21,6 +21,7 @@ from yunionclient.common import http
 from yunionclient.api import zones
 from yunionclient.api import keypairs
 from yunionclient.api import hosts
+from yunionclient.api import vpcs
 from yunionclient.api import wires
 from yunionclient.api import hostwires
 from yunionclient.api import storages
@@ -69,6 +70,7 @@ from yunionclient.api.tenantinfo import TenantInfo, TenantInfoManager
 from yunionclient.api import users
 from yunionclient.api import tenants
 from yunionclient.api import projects
+from yunionclient.api import domains
 from yunionclient.api import groups
 from yunionclient.api import roles
 from yunionclient.api import groupusers
@@ -108,6 +110,7 @@ class Client(http.HTTPClient):
         self.keypairs = keypairs.KeypairManager(self)
         self.zones = zones.ZoneManager(self)
         self.hosts = hosts.HostManager(self)
+        self.vpcs = vpcs.VpcManager(self)
         self.wires = wires.WireManager(self)
         self.storages = storages.StorageManager(self)
 
@@ -144,6 +147,7 @@ class Client(http.HTTPClient):
         self.users = users.UserManager(self)
         self.tenants = tenants.TenantManager(self)
         self.projects = projects.ProjectManager(self)
+        self.domains = domains.DomainManager(self)
         self.groups = groups.GroupManager(self)
         self.roles = roles.RoleManager(self)
         self.groupusers = groupusers.GroupuserManager(self)
