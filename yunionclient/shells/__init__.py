@@ -18,3 +18,4 @@ from .monitors import *
 from .baremetals import *
 from .schedtags import *
 from .metadatas import *
+from .price_infos import *

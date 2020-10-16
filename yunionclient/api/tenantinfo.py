@@ -142,6 +142,8 @@ class TenantInfo(object):
         return self.get_endpoint_v3(region, service, ep_type, zone=zone)
 
     def get_endpoint_v3(self, region, service, ep_type, zone=None):
+        if not ep_type.endswith('URL'):
+            ep_type += 'URL'
         for s in self.catalog:
             if s['type'] == service:
                 regions = {}
