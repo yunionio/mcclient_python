@@ -1,7 +1,12 @@
 from yunionclient.common import base
 
 
+class Network(base.ResourceBase):
+    pass
+
+
 class NetworkManager(base.StandaloneManager):
+    resource_class = Network
     keyword = 'network'
     keyword_plural = 'networks'
     _columns = ['ID', 'Name', 'Guest_ip_start', 'Guest_ip_end', 'Guest_ip_mask',

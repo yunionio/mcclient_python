@@ -65,6 +65,8 @@ from yunionclient.api import scheduler
 
 from yunionclient.api.stats import RegionStatsManager
 
+from yunionclient.api import price_infos
+
 from yunionclient.api.tenantinfo import TenantInfo, TenantInfoManager
 
 from yunionclient.api import users
@@ -182,6 +184,8 @@ class Client(http.HTTPClient):
 
         self.loadbalancerclusters = loadbalancers.LoadbalancerClusterManager(self)
         self.loadbalanceragents = loadbalancers.LoadbalancerAgentManager(self)
+
+        self.price_infos = price_infos.PriceInfoManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region

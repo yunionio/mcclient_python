@@ -400,3 +400,7 @@ class ResourceBase(object):
                     if not callable(v):
                         d[k] = v
         return d
+
+
+class MeterManager(StandaloneManager):
+    service_type = 'meter'
