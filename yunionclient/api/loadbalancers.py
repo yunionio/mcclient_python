@@ -1,7 +1,11 @@
 from yunionclient.common import base
 
 
+class Loadbalancer(base.ResourceBase):
+    pass
+
 class LoadbalancerManager(base.StandaloneManager):
+    resource_class = Loadbalancer
     keyword = 'loadbalancer'
     keyword_plural = 'loadbalancers'
     _columns = [
@@ -18,7 +22,12 @@ class LoadbalancerManager(base.StandaloneManager):
         'tenant',
     ]
 
+class LoadbalancerListener(base.ResourceBase):
+    pass
+
+
 class LoadbalancerListenerManager(base.StandaloneManager):
+    resource_class = LoadbalancerListener
     keyword = 'loadbalancerlistener'
     keyword_plural = 'loadbalancerlisteners'
     _columns = [
@@ -36,7 +45,11 @@ class LoadbalancerListenerManager(base.StandaloneManager):
         'tenant',
     ]
 
+class LoadbalancerListenerRule(base.ResourceBase):
+    pass
+
 class LoadbalancerListenerRuleManager(base.StandaloneManager):
+    resource_class = LoadbalancerListenerRule
     keyword = 'loadbalancerlistenerrule'
     keyword_plural = 'loadbalancerlistenerrules'
     _columns = [
@@ -52,7 +65,11 @@ class LoadbalancerListenerRuleManager(base.StandaloneManager):
         'tenant',
     ]
 
+class LoadbalancerCertificate(base.ResourceBase):
+    pass
+
 class LoadbalancerCertificateManager(base.StandaloneManager):
+    resource_class = LoadbalancerCertificate
     keyword = 'loadbalancercertificate'
     keyword_plural = 'loadbalancercertificates'
     _columns = [
@@ -69,7 +86,11 @@ class LoadbalancerCertificateManager(base.StandaloneManager):
         'tenant',
     ]
 
+class LoadbalancerBackendGroup(base.ResourceBase):
+    pass
+
 class LoadbalancerBackendGroupManager(base.StandaloneManager):
+    resource_class = LoadbalancerBackendGroup
     keyword = 'loadbalancerbackendgroup'
     keyword_plural = 'loadbalancerbackendgroups'
     _columns = [
@@ -81,7 +102,11 @@ class LoadbalancerBackendGroupManager(base.StandaloneManager):
         'tenant',
     ]
 
+class LoadbalancerBackend(base.ResourceBase):
+    pass
+
 class LoadbalancerBackendManager(base.StandaloneManager):
+    resource_class = LoadbalancerBackend
     keyword = 'loadbalancerbackend'
     keyword_plural = 'loadbalancerbackends'
     _columns = [
@@ -98,7 +123,11 @@ class LoadbalancerBackendManager(base.StandaloneManager):
         'tenant',
     ]
 
+class LoadbalancerAcl(base.ResourceBase):
+    pass
+
 class LoadbalancerAclManager(base.StandaloneManager):
+    resource_class = LoadbalancerAcl
     keyword = 'loadbalanceracl'
     keyword_plural = 'loadbalanceracls'
     _columns = [
@@ -110,7 +139,11 @@ class LoadbalancerAclManager(base.StandaloneManager):
         'tenant',
     ]
 
+class LoadbalancerCluster(base.ResourceBase):
+    pass
+
 class LoadbalancerClusterManager(base.StandaloneManager):
+    resource_class = LoadbalancerCluster
     keyword = 'loadbalancercluster'
     keyword_plural = 'loadbalancerclusters'
     _columns = [
@@ -119,7 +152,11 @@ class LoadbalancerClusterManager(base.StandaloneManager):
         "zone_id"
     ]
 
+class LoadbalancerAgent(base.ResourceBase):
+    pass
+
 class LoadbalancerAgentManager(base.StandaloneManager):
+    resource_class = LoadbalancerAgent
     keyword = 'loadbalanceragent'
     keyword_plural = 'loadbalanceragents'
     _columns = [
