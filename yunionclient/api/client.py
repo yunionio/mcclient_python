@@ -83,6 +83,8 @@ from yunionclient.api import endpoints
 from yunionclient.api import schedtags
 from yunionclient.api import metadatas
 from yunionclient.api import loadbalancers
+from yunionclient.api import dbinstances
+from yunionclient.api import elasticcaches
 
 logger = logging.getLogger(__name__)
 
@@ -184,6 +186,9 @@ class Client(http.HTTPClient):
 
         self.loadbalancerclusters = loadbalancers.LoadbalancerClusterManager(self)
         self.loadbalanceragents = loadbalancers.LoadbalancerAgentManager(self)
+
+        self.dbinstances = dbinstances.DbinstanceManager(self)
+        self.elasticcaches = elasticcaches.ElasticcacheManager(self)
 
         self.price_infos = price_infos.PriceInfoManager(self)
 
