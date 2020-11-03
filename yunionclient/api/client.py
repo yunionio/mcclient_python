@@ -86,6 +86,11 @@ from yunionclient.api import loadbalancers
 from yunionclient.api import dbinstances
 from yunionclient.api import elasticcaches
 
+from yunionclient.api import dnszones
+from yunionclient.api import dnsrecordsets
+
+from yunionclient.api import actionlogs
+
 logger = logging.getLogger(__name__)
 
 
@@ -191,6 +196,11 @@ class Client(http.HTTPClient):
         self.elasticcaches = elasticcaches.ElasticcacheManager(self)
 
         self.price_infos = price_infos.PriceInfoManager(self)
+
+        self.dnszones = dnszones.DnsZoneManager(self)
+        self.dnsrecordsets = dnsrecordsets.DnsRecordsetManager(self)
+
+        self.actionlogs = actionlogs.ActionManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
