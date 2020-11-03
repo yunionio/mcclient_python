@@ -404,3 +404,6 @@ class ResourceBase(object):
 
 class MeterManager(StandaloneManager):
     service_type = 'meter'
+
+class LoggerManager(StandaloneManager):
+    service_type = 'log'
