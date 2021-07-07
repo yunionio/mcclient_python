@@ -26,6 +26,7 @@ from yunionclient.api import wires
 from yunionclient.api import hostwires
 from yunionclient.api import storages
 from yunionclient.api import hoststorages
+from yunionclient.api import cachedimages
 
 from yunionclient.api import networks
 from yunionclient.api import disks
@@ -125,6 +126,7 @@ class Client(http.HTTPClient):
 
         self.hostwires = hostwires.HostwireManager(self)
         self.hoststorages = hoststorages.HoststorageManager(self)
+        self.cachedimages = cachedimages.CachedimageManager(self)
 
         self.networks = networks.NetworkManager(self)
         self.disks = disks.DiskManager(self)
