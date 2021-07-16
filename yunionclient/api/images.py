@@ -18,6 +18,7 @@ class Image(base.ResourceBase):
             k = k.replace('-', '_')
             new_props[k] = v
         attr_dict['properties'] = new_props
+        attr_dict.pop('os_arch', None)
         return attr_dict
 
     def _get_owner(self):
