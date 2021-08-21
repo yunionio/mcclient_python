@@ -1,8 +1,7 @@
-YunionCloud Python Client SDK
-===================================
+Cloudpods Python 3 SDK
+======================
 
-
-本仓库提供了访问YunionCloud API的Python 3 SDK以及基于该SDK的climc客户端代码。
+本仓库提供了访问Cloudpods API的Python 3 SDK以及基于该SDK的climc客户端代码。
 
 
 命令行使用方法
@@ -131,5 +130,3 @@ try:
 except exceptions.NotFound:
 	print('guest deleted')
 ```
-
-北京云联万维技术有限公司 © 2017-2020
