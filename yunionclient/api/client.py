@@ -92,6 +92,13 @@ from yunionclient.api import dnsrecordsets
 
 from yunionclient.api import actionlogs
 
+from yunionclient.api import filesystems
+from yunionclient.api import buckets
+from yunionclient.api import natgateways
+from yunionclient.api import cloudaccounts
+from yunionclient.api import cloudproviders
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -203,6 +210,12 @@ class Client(http.HTTPClient):
         self.dnsrecordsets = dnsrecordsets.DnsRecordsetManager(self)
 
         self.actionlogs = actionlogs.ActionManager(self)
+
+        self.file_systems = filesystems.FilesystemManager(self)
+        self.buckets = buckets.BucketManager(self)
+        self.natgateways = natgateways.NatgatewayManager(self)
+        self.cloudaccounts = cloudaccounts.CloudaccountManager(self)
+        self.cloudproviders = cloudproviders.CloudproviderManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
