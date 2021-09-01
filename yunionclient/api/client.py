@@ -97,6 +97,7 @@ from yunionclient.api import buckets
 from yunionclient.api import natgateways
 from yunionclient.api import cloudaccounts
 from yunionclient.api import cloudproviders
+from yunionclient.api import dnszonecaches
 
 
 logger = logging.getLogger(__name__)
@@ -216,6 +217,7 @@ class Client(http.HTTPClient):
         self.natgateways = natgateways.NatgatewayManager(self)
         self.cloudaccounts = cloudaccounts.CloudaccountManager(self)
         self.cloudproviders = cloudproviders.CloudproviderManager(self)
+        self.dnszonecaches = dnszonecaches.DnsZoneCacheManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
