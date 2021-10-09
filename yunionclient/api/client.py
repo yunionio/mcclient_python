@@ -99,6 +99,8 @@ from yunionclient.api import cloudaccounts
 from yunionclient.api import cloudproviders
 from yunionclient.api import dnszonecaches
 from yunionclient.api import eips
+from yunionclient.api import serverskus
+
 
 
 logger = logging.getLogger(__name__)
@@ -220,6 +222,7 @@ class Client(http.HTTPClient):
         self.cloudproviders = cloudproviders.CloudproviderManager(self)
         self.dnszonecaches = dnszonecaches.DnsZoneCacheManager(self)
         self.eips = eips.EIPManager(self)
+        self.serverskus = serverskus.ServerSkuManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
