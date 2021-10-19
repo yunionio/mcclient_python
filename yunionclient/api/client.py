@@ -99,12 +99,8 @@ from yunionclient.api import cloudaccounts
 from yunionclient.api import cloudproviders
 from yunionclient.api import dnszonecaches
 from yunionclient.api import eips
-<<<<<<< HEAD
 from yunionclient.api import serverskus
-
-=======
 from yunionclient.api import mongodbs
->>>>>>> d9e55a5 (add mongodb resource)
 
 
 logger = logging.getLogger(__name__)
