@@ -67,6 +67,7 @@ from yunionclient.api import scheduler
 from yunionclient.api.stats import RegionStatsManager
 
 from yunionclient.api import price_infos
+from yunionclient.api import prices
 
 from yunionclient.api.tenantinfo import TenantInfo, TenantInfoManager
 
@@ -209,6 +210,8 @@ class Client(http.HTTPClient):
         self.elasticcaches = elasticcaches.ElasticcacheManager(self)
 
         self.price_infos = price_infos.PriceInfoManager(self)
+        self.prices = prices.PriceManager(self)
+        self.price_metadatas = prices.PriceMetadataManager(self)
 
         self.dnszones = dnszones.DnsZoneManager(self)
         self.dnsrecordsets = dnsrecordsets.DnsRecordsetManager(self)
