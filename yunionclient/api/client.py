@@ -102,6 +102,7 @@ from yunionclient.api import dnszonecaches
 from yunionclient.api import eips
 from yunionclient.api import serverskus
 from yunionclient.api import mongodbs
+from yunionclient.api import cdndomains
 
 
 logger = logging.getLogger(__name__)
@@ -227,6 +228,7 @@ class Client(http.HTTPClient):
         self.eips = eips.EIPManager(self)
         self.serverskus = serverskus.ServerSkuManager(self)
         self.mongodbs = mongodbs.MongoDBManager(self)
+        self.cdndomains = cdndomains.CdnDomainManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
