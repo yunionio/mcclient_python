@@ -31,11 +31,11 @@ class MetadataManager(base.StandaloneManager):
 
     def list(self, **kwargs):
         if 'service' in kwargs:
-            return self.get_module(kwargs['service']).list()
+            return self.get_module(kwargs['service']).list(**kwargs)
         raise Exception('No service specified')
 
     def get(self, idstr, **kwargs):
         if 'service' in kwargs:
-            return self.get_module(kwargs['service']).get(idstr)
+            return self.get_module(kwargs['service']).get(idstr, **kwargs)
         raise Exception('No service specified')
 
