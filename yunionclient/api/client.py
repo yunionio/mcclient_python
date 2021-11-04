@@ -101,6 +101,7 @@ from yunionclient.api import cloudproviders
 from yunionclient.api import dnszonecaches
 from yunionclient.api import eips
 from yunionclient.api import serverskus
+from yunionclient.api import dbinstancesku
 from yunionclient.api import mongodbs
 from yunionclient.api import cdndomains
 
@@ -227,6 +228,7 @@ class Client(http.HTTPClient):
         self.dnszonecaches = dnszonecaches.DnsZoneCacheManager(self)
         self.eips = eips.EIPManager(self)
         self.serverskus = serverskus.ServerSkuManager(self)
+        self.dbinstance_skus = dbinstancesku.DbinstanceSkuManager(self)
         self.mongodbs = mongodbs.MongoDBManager(self)
         self.cdndomains = cdndomains.CdnDomainManager(self)
 
