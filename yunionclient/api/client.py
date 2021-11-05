@@ -52,6 +52,7 @@ from yunionclient.api import sshrelay
 from yunionclient.api import quotas
 
 from yunionclient.api import secgroups
+from yunionclient.api import secgroupcaches
 
 from yunionclient.api import dnsrecords
 
@@ -182,6 +183,7 @@ class Client(http.HTTPClient):
         self.endpoints = endpoints.EndpointManager(self)
 
         self.secgroups = secgroups.SecuritygroupManager(self)
+        self.secgroupcaches = secgroupcaches.SecgroupCacheManager(self)
 
         self.dns = dnsrecords.DNSRecordManager(self)
 
