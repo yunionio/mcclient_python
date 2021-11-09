@@ -85,6 +85,8 @@ class Manager(object):
 
     def _get(self, url, response_key, obj_class=None):
         resp, body = self.json_request('GET', url)
+        if len(response_key) == 0:
+            return body
         data = body[response_key]
         return self._dict_to_object(data, obj_class)
 

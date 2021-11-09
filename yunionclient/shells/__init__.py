@@ -20,3 +20,9 @@ from .schedtags import *
 from .metadatas import *
 from .price_infos import *
 from .serverskus import *
+from .accessgroupcaches import *
+from .accessgrouprules import *
+from .accessgroups import *
+from .apps import *
+from .capability import *
+from .cloudregions import *
