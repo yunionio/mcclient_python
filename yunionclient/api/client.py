@@ -105,6 +105,12 @@ from yunionclient.api import serverskus
 from yunionclient.api import dbinstancesku
 from yunionclient.api import mongodbs
 from yunionclient.api import cdndomains
+from yunionclient.api import accessgroupcaches
+from yunionclient.api import accessgrouprules
+from yunionclient.api import accessgroups
+from yunionclient.api import apps
+from yunionclient.api import capabilities
+from yunionclient.api import cloudregions
 
 
 logger = logging.getLogger(__name__)
@@ -233,6 +239,12 @@ class Client(http.HTTPClient):
         self.dbinstance_skus = dbinstancesku.DbinstanceSkuManager(self)
         self.mongodbs = mongodbs.MongoDBManager(self)
         self.cdndomains = cdndomains.CdnDomainManager(self)
+        self.accessgroupcaches = accessgroupcaches.AccessGroupCacheManager(self)
+        self.accessgrouprules = accessgrouprules.AccessGroupRuleManager(self)
+        self.accessgroups = accessgroups.AccessGroupManager(self)
+        self.apps = apps.AppManager(self)
+        self.capabilities = capabilities.CapabilityManager(self)
+        self.cloudregions = cloudregions.CloudregionManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
