@@ -12,3 +12,4 @@
 .ropeproject
 *.egg-info
 build
+*.egg

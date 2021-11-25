@@ -87,6 +87,7 @@ from yunionclient.api import schedtags
 from yunionclient.api import metadatas
 from yunionclient.api import loadbalancers
 from yunionclient.api import dbinstances
+from yunionclient.api import dbinstancenetworks
 from yunionclient.api import elasticcaches
 
 from yunionclient.api import dnszones
@@ -112,6 +113,9 @@ from yunionclient.api import apps
 from yunionclient.api import capabilities
 from yunionclient.api import cloudregions
 from yunionclient.api import nasskus
+
+from yunionclient.api import kafkas
+from yunionclient.api import elasticsearchs
 
 
 logger = logging.getLogger(__name__)
@@ -218,6 +222,7 @@ class Client(http.HTTPClient):
         self.loadbalanceragents = loadbalancers.LoadbalancerAgentManager(self)
 
         self.dbinstances = dbinstances.DbinstanceManager(self)
+        self.dbinstancenetworks = dbinstancenetworks.DBInstancenetworkManager(self)
         self.elasticcaches = elasticcaches.ElasticcacheManager(self)
 
         self.price_infos = price_infos.PriceInfoManager(self)
@@ -248,6 +253,8 @@ class Client(http.HTTPClient):
         self.cloudregions = cloudregions.CloudregionManager(self)
 
         self.nasskus = nasskus.NasSkuManager(self)
+        self.kafkas = kafkas.KafkaManager(self)
+        self.elasticsearchs = elasticsearchs.ElasticSearchManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
