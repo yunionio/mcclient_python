@@ -317,14 +317,21 @@ class ImageManager(StandaloneManager):
 
 
 class JointManager(Manager):
+    @classmethod
+    def keyword_url(cls):
+        return cls.keyword.replace(':', '/')
+
+    @classmethod
+    def keyword_plural_url(cls):
+        return cls.keyword_plural.replace(':', '/')
+
     def get(self, mid, sid):
         url = r'/%s/%s/%s/%s' % (self.master_class().keyword_plural_url(),
                             mid, self.slave_class().keyword_plural_url(), sid)
         return self._get(url, self.keyword)
 
     def list(self, **kwargs):
-        url = r'/%s-%s' % (self.master_class().keyword_plural_url(),
-                            self.slave_class().keyword_plural_url())
+        url = r'/%s' % (self.keyword_plural_url())
         kwargs = clean_kwargs(kwargs)
         if len(kwargs) > 0:
             url += '?%s' % utils.urlencode(kwargs)

@@ -27,3 +27,8 @@ from .apps import *
 from .capability import *
 from .cloudregions import *
 from .nasskus import *
+from .mongodbs import *
+from .kafkas import *
+from .elasticsearchs import *
+from .dbinstances import *
+from .dbinstancenetworks import *
