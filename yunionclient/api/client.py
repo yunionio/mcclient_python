@@ -111,6 +111,7 @@ from yunionclient.api import accessgroups
 from yunionclient.api import apps
 from yunionclient.api import capabilities
 from yunionclient.api import cloudregions
+from yunionclient.api import nasskus
 
 
 logger = logging.getLogger(__name__)
@@ -245,6 +246,8 @@ class Client(http.HTTPClient):
         self.apps = apps.AppManager(self)
         self.capabilities = capabilities.CapabilityManager(self)
         self.cloudregions = cloudregions.CloudregionManager(self)
+
+        self.nasskus = nasskus.NasSkuManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region

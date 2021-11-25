@@ -26,3 +26,4 @@ from .accessgroups import *
 from .apps import *
 from .capability import *
 from .cloudregions import *
+from .nasskus import *
