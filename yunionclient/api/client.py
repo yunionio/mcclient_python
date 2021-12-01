@@ -116,6 +116,7 @@ from yunionclient.api import nasskus
 
 from yunionclient.api import kafkas
 from yunionclient.api import elasticsearchs
+from yunionclient.api import mounttargets
 
 
 logger = logging.getLogger(__name__)
@@ -255,6 +256,7 @@ class Client(http.HTTPClient):
         self.nasskus = nasskus.NasSkuManager(self)
         self.kafkas = kafkas.KafkaManager(self)
         self.elasticsearchs = elasticsearchs.ElasticSearchManager(self)
+        self.mounttargets = mounttargets.MountTargetManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
