@@ -8,3 +8,4 @@ class MountTargetManager(base.StandaloneManager):
     keyword = 'mount_target'
     keyword_plural = "mount_targets"
     _columns = ["Id", "Name", "Network_type", "Vpc", "Domain_name", "File_System_Id"]
+

@@ -1,5 +1,3 @@
-import yunionclient
-
 from yunionclient.common import utils
 
 @utils.arg('--limit', metavar='<NUMBER>', default=20, help='Page limit')
@@ -17,7 +15,6 @@ from yunionclient.common import utils
 def do_mount_target_list(client, args):
     """ List all mount target"""
     page_info = utils.get_paging_info(args)
-    tgs = client.mounttargets.list(**page_info)
-    utils.print_list(tgs, client.mounttargets.columns)
-
+    mounttargets = client.mounttargets.list(**page_info)
+    utils.print_list(mounttargets, client.mounttargets.columns)
 
