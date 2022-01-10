@@ -74,7 +74,7 @@ if project_name is not None or project_id is not None:
     client.set_project(project_name=project_name, project_id=project_id)
 
 # List all public images
-imgs, total, limit, offset = client.images.list(is_public='false')
+imgs, total, limit, offset = client.images.list(is_public='false', status='active')
 if len(imgs) == 0:
     raise Exception('No image found')
 
@@ -91,7 +91,7 @@ def waitStatus(guest, xstatus):
 # Create a guest server with the 1st image in the list
 img_id = imgs[0]['id']
 params = {}
-params['name'] = 'test'
+params['generate_name'] = 'test' # or params['name'] = 'test'
 params['vcpu_count'] = 1
 params['vmem_size'] = 64 # memory size 64MB
 params['disable_delete'] = False
