@@ -15,6 +15,19 @@
 
 import logging
 import json
+import hashlib
+import hmac
+from datetime import datetime, timezone
+from requests import Request, Session
+from urllib.parse import quote
+from urllib3.util import parse_url
+try:
+    # python 2
+    from urllib import quote
+    from urlparse import urlparse
+except ImportError:
+    # python 3
+    from urllib.parse import quote, urlparse
 
 from yunionclient.common import http
 
@@ -292,7 +305,7 @@ class Client(http.HTTPClient):
     """Client for Yunion Cloud API
     """
 
-    def __init__(self, auth_url, username, password, domain_name,
+    def __init__(self, auth_url, username=None, password=None, domain_name=None,
                     region=None, zone=None, endpoint_type='internalURL',
                     timeout=600, insecure=False):
         """ Initialize a new client for the Images v1 API. """
@@ -614,6 +627,240 @@ class Client(http.HTTPClient):
         body = {'auth': auth}
         resp, body = self._json_request(self.auth_url, None,
                                             'POST', '/auth/tokens', body=body)
+        if 'token' in body:
+            token_id = resp['x-subject-token']
+            if 'project' in body['token']:
+                self.default_tenant = TenantInfo(None, None)
+                token = {'id': token_id,
+                        'tenant': body['token']['project'],
+                        'expires': body['token']['expires_at']}
+                catalog = body['token']['catalog']
+                user = body['token']['user']
+                self.default_tenant.set_access_info(token, catalog, user)
+                self.tenants_info_manager.add_tenant(self.default_tenant)
+            else:
+                self._fetch_tenants(token_id)
+            return True
+        else:
+            raise Exception('Wrong return format %s' % json.dumps(body))
+    
+    def get_signed_headers(self, req, _ignoreHeaders = []):
+        ret = []
+        hasHost = False
+        hasContentHash = False
+        ignoreHeaders = []
+        headers = []
+        for h in _ignoreHeaders:
+            ignoreHeaders.append(h.lower())
+        for k, v in req.headers.items():
+            if k in ignoreHeaders:
+                continue
+            if k.lower() == 'host':
+                hasHost = True
+            elif k.lower() == 'x-amz-content-sha256':
+                hasContentHash = True
+            else:
+                headers.append(k.lower())
+        if not hasHost:
+            headers.append('host')
+        if not hasContentHash:
+            headers.append('x-amz-content-sha256')
+
+        headers.sort()
+        return headers
+
+    def get_canonical_headers(self, req, signed_headers=[]):
+        ret = ''
+        for h in signed_headers:
+            ret += h
+            ret += ':'
+            if h == 'host':
+                parsedurl = urlparse(req.url)
+                host = parsedurl.netloc.split(':')[0]
+                if len(host) > 0:
+                    ret += host
+                ret += '\n'
+            else:
+                if hasattr(req, 'headers') and hasattr(req.headers, h):
+                    ret += req.headers[h]
+                ret+= '\n'
+        return ret
+
+    def get_canonical_request(self, req, signed_headers=[]):
+        url = quote(req.url).replace('+', '%20')
+        parsedurl = urlparse(req.url)
+        canonical_path = quote(parsedurl.path if parsedurl.path else '/', safe='/-_.~')
+
+        canonical_querystring = ''
+        querystring_sorted = '&'.join(sorted(parsedurl.query.split('&')))
+
+        for query_param in querystring_sorted.split('&'):
+            key_val_split = query_param.split('=', 1)
+
+            key = key_val_split[0]
+            if len(key_val_split) > 1:
+                val = key_val_split[1]
+            else:
+                val = ''
+
+            if key:
+                if canonical_querystring:
+                    canonical_querystring += "&"
+                canonical_querystring += u'='.join([key, val])
+
+        body = bytes()
+        if hasattr(req, 'body'):
+            body = req.body
+        try:
+            body = body.encode('utf-8')
+        except (AttributeError, UnicodeDecodeError):
+            body = body
+
+        payload_hash = hashlib.sha256(body).hexdigest()
+
+        canonical_headers = self.get_canonical_headers(req, signed_headers)
+        ret = [req.method, canonical_path, canonical_querystring, canonical_headers, ';'.join(signed_headers), payload_hash]
+        return '\n'.join(ret)
+
+    def get_scope(self, location, t):
+        return '/'.join([t.strftime('%Y%m%d'), location, 's3', 'aws4_request'])
+
+    def sign(self, key, msg):
+        return hmac.new(key, msg.encode('utf-8'), hashlib.sha256).digest()
+
+    def get_signature_key(self, key, dateStamp, location):
+        kDate = self.sign(('AWS4' + key).encode('utf-8'), dateStamp)
+        kRegion = self.sign(kDate, location)
+        kService = self.sign(kRegion, 's3')
+        kSigning = self.sign(kService, 'aws4_request')
+        return kSigning
+
+    def sign_v4(self, req, access_key=None, access_secret=None, location=None):
+        if access_key is None or access_secret is None:
+            return req
+        if hasattr(req, 'body'):
+            sha = hashlib.sha256(req.body.encode('utf-8')).hexdigest()
+            req.headers['X-Amz-Content-Sha256'] = sha
+        # 20060102T150405Z
+        now = datetime.now(timezone.utc)
+        req.headers['X-Amz-Date'] = now.strftime('%Y%m%dT%H%M%SZ')
+        # Mon, 02 Jan 2006 15:04:05 MST
+        req.headers['Date'] = datetime.now(timezone.utc).strftime('%a, %m %b %Y %H:%M:%S MST')
+        signed_headers = self.get_signed_headers(req, ['Authorization', 'Content-Type', 'Content-Length', 'User-Agent'])
+        canonical_request = self.get_canonical_request(req, signed_headers)
+
+        algorithm = 'AWS4-HMAC-SHA256'
+        t = datetime.now(timezone.utc)
+        scope = self.get_scope(location, t)
+        string_to_sign = algorithm + '\n' + t.strftime('%Y%m%dT%H%M%SZ') + '\n' + scope + '\n' + hashlib.sha256(canonical_request.encode('utf-8')).hexdigest()
+
+        signing_key = self.get_signature_key(access_secret, t.strftime('%Y%m%d'), location)
+
+        string_to_sign_utf8 = string_to_sign.encode('utf-8')
+
+        credential = self.get_credential(access_key, location, t)
+
+        signature = hmac.new(signing_key, string_to_sign_utf8, hashlib.sha256).hexdigest()
+        authorization_header = [
+                algorithm + ' ' + 'Credential=' + credential, 
+                'SignedHeaders=' + ';'.join(signed_headers),
+                'Signature=' + signature,
+                ]
+        
+        req.headers['Authorization'] = ','.join(authorization_header)
+        return req
+
+    def get_credential(self, access_key, location, t):
+        scope = self.get_scope(location, t)
+        return access_key + '/' + scope
+
+    def decode_access_key_request(self, req, virtual_host=False):
+        auth_header = req.headers['Authorization']
+        if auth_header is None or len(auth_header) == 0:
+            raise Exception('missing authorization header')
+        aksk_req = self.decode_auth_header(auth_header)
+
+        aksk_req = self.parse_request(req, aksk_req, virtual_host)
+        return aksk_req
+
+    #def verify(aksk, secret):
+    #    signing_key = self.get_signature_key
+
+    def parse_request(self, req, aksk={}, virtual_host=False):
+        date_str = req.headers['X-Amz-Date']
+        if len(date_str) == 0:
+            raise Exception('missing x-amz-date')
+        date_sign = datetime.strptime(date_str, '%Y%m%dT%H%M%SZ')
+
+        canonical_req = self.get_canonical_request(req, aksk['signed_headers'])
+        aksk['sign_date'] = date_sign.strftime('%Y-%m-%dT%H:%M:%S.%fZ')
+        aksk['request'] = self.get_string_to_sign_v4(date_sign, aksk['location'], canonical_req)
+        return aksk
+
+    def get_string_to_sign_v4(self, date, location, canonical_request):
+        string_to_sign = 'AWS4-HMAC-SHA256' + '\n' + date.strftime('%Y%m%dT%H%M%SZ') + '\n'
+        string_to_sign += self.get_scope(location, date) + '\n'
+        string_to_sign += hashlib.sha256(canonical_request.encode('utf-8')).hexdigest()
+        return string_to_sign
+
+    def decode_auth_header(self, auth_header=''):
+        pos = auth_header.index(' ')
+        if pos <= 0:
+            raise Exception('illegal authorization header')
+        algo = auth_header[:pos]
+        if algo == 'AWS4-HMAC-SHA256':
+            return self.decode_auth_header_v4(auth_header[pos+1:])
+
+        raise Exception('unsupported signing algorithm %s', algo)
+
+    def decode_auth_header_v4(self, auth_str=''):
+        parts = auth_str.split(',')
+        if len(parts) != 3 or not (parts[0].startswith('Credential=') and parts[1].startswith('SignedHeaders=') and parts[2].startswith('Signature=')):
+            raise Exception('illegal v4 auth header')
+        cred_parts = parts[0][len('Credential='):].split('/')
+        if len(cred_parts) != 5:
+            raise Exception('illegal v4 auth header Credential')
+       
+        req = {}
+        req['algorithm'] = 'AWS4-HMAC-SHA256'
+        req['access_key'] = cred_parts[0]
+        req['location'] = cred_parts[2]
+        headers = parts[1][len('SignedHeaders='):].split(';')
+        headers.sort()
+        req['signed_headers'] = headers
+        req['signature'] = parts[2][len('Signature='):]
+        return req
+
+    def authenticate_by_access_key(self, access_key=None, access_secret=None, source='cli'):
+        logging.info('authenticate %s %s' % (access_key, access_secret))
+        auth = {}
+        aksk = {'access_key': access_key, 'location': 'cn-beijing', 'algorithm': 'AWS4-HMAC-SHA256'}
+        actx = {'source': source}
+        auth['context'] = actx
+        auth['identity'] = {
+                'access_key_secret': str(json.dumps(aksk)),
+                'methods': ['aksk'],
+                }
+        body = {'auth': auth}
+        req = Request('POST', self.auth_url+ '/auth/tokens', data=json.dumps(body), headers={})
+        newReq = self.sign_v4(req, access_key, access_secret, aksk['location'])
+
+        _aksk = self.decode_access_key_request(req, False)
+
+        self.verify_key_secret(_aksk, actx)
+
+    def verify_key_secret(self, aksk, actx):
+        input = {
+                'auth': {
+                    'identity': {
+                        'methods': ['aksk'],
+                        'access_key_secret': str(json.dumps(aksk)),
+                        },
+                    'ctx': actx,
+                    },
+                }
+        resp, body = self._json_request(self.auth_url, None,
+                                            'POST', '/auth/tokens', body=input)
         if 'token' in body:
             token_id = resp['x-subject-token']
             if 'project' in body['token']:

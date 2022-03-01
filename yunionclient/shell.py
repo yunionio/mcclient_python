@@ -63,6 +63,14 @@ class APIShell(object):
         parser.add_argument('--os_password',
             help=argparse.SUPPRESS)
 
+        parser.add_argument('--os-access-key',
+            default=utils.env('OS_ACCESS_KEY'),
+            help='ak/sk access key, defaults to env[OS_ACCESS_KEY]')
+
+        parser.add_argument('--os-secret-key',
+            default=utils.env('OS_SECRET_KEY'),
+            help='ak/s secret, defaults to env[OS_SECRET_KEY]')
+
         parser.add_argument('--os-project-id',
             default=utils.env('OS_PROJECT_ID'),
             help='Defaults to env[OS_PROJECT_ID]')
@@ -233,11 +241,11 @@ class APIShell(object):
             self.do_help(args)
             return 0
 
-        if not args.os_username and not args.import_client_desc:
+        if not args.os_username and not args.import_client_desc and not args.os_access_key:
             raise exc.CommandError("You must provide a username via"
                         " either --os-username or env[OS_USERNAME]")
 
-        if not args.os_password and not args.import_client_desc:
+        if not args.os_password and not args.import_client_desc and not args.os_secret_key:
             raise exc.CommandError("You must provide a password via"
                         " either --os-password or env[OS_PASSWORD]")
 
@@ -256,6 +264,13 @@ class APIShell(object):
                                             timeout=args.timeout,
                                             insecure=args.insecure)
             client.from_file(args.import_client_desc)
+        elif len(args.os_access_key) > 0 and len(args.os_secret_key) > 0:
+            client = yunionclient.api.client.Client(args.os_auth_url,
+                                        region=args.os_region_name,
+                                        endpoint_type=args.os_endpoint_type,
+                                        timeout=args.timeout,
+                                        insecure = args.insecure)
+            client.authenticate_by_access_key(args.os_access_key, args.os_secret_key)
         else:
             client = yunionclient.api.client.Client(args.os_auth_url,
                                         args.os_username,
