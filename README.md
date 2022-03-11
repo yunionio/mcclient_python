@@ -8,7 +8,7 @@ Cloudpods Python 3 SDK
 ---------------
 
 
-首先准备rc文件，内容如下：
+首先准备rc文件，内容如下(密码认证)：
 
     export OS_USERNAME=sysadmin
     export OS_PASSWORD=MXX2VKe067jtD
@@ -17,6 +17,13 @@ Cloudpods Python 3 SDK
     export OS_AUTH_URL=http://10.68.22.1:5000/v3
     export OS_REGION_NAME=LocalTest
 
+或aksk认证rc文件:
+
+    export OS_AUTH_URL=http://10.68.22.1:5000/v3
+    export OS_ACCESS_KEY=355270364e0a46eb84429e5ffa043842
+    export OS_SECRET_KEY=cktuREpGUnVrcjRNeGp0UlZQMmJaRjI4OVQ4UUdLanE=
+    export OS_REGION_NAME=LocalTest
+    export YUNION_INSECURE=true
 
 首先source该rc文件，然后执行climc，例如：
 
@@ -38,6 +45,7 @@ SDK调用方法
 * argparse
 * prettytable
 * httplib2
+* requests
 * pycrypto>=2.6
 
 示例代码：
@@ -48,30 +56,39 @@ SDK调用方法
 
 import yunionclient.api.client
 
-desc = {
-    'project_name': 'system',
-    'project_id': None,
-    'args': (
-        'https://nn.nnn.nnn.nnn:30357/v3',  # auth_url
-        'sysadmin',                         # username
-        'pppppppppppppppp',                 # password
-        None,                               # domain
-    ),
-    'kwargs': {
-        'region': 'YunionHQ',
-        'zone': None,
-        'insecure': True,
-        'endpoint_type': 'publicURL',
-    },
-}
+#desc = {
+#    'project_name': 'system',
+#    'project_id': None,
+#    'args': (
+#        'https://nn.nnn.nnn.nnn:30357/v3',  # auth_url
+#        'sysadmin',                         # username
+#        'pppppppppppppppp',                 # password
+#        None,                               # domain
+#    ),
+#    'kwargs': {
+#        'region': 'YunionHQ',
+#        'zone': None,
+#        'insecure': True,
+#        'endpoint_type': 'publicURL',
+#    },
+#}
+#
+#args = desc['args']
+#kwargs = desc['kwargs']
+#client = yunionclient.api.client.Client(*args, **kwargs)
+#project_name = desc.get('project_name')
+#project_id = desc.get('project_id')
+#if project_name is not None or project_id is not None:
+#    client.set_project(project_name=project_name, project_id=project_id)
 
-args = desc['args']
-kwargs = desc['kwargs']
-client = yunionclient.api.client.Client(*args, **kwargs)
-project_name = desc.get('project_name')
-project_id = desc.get('project_id')
-if project_name is not None or project_id is not None:
-    client.set_project(project_name=project_name, project_id=project_id)
+# 秘钥认证方式，速度更快，更安全
+client = yunionclient.api.client.Client(
+    'https://nn.nnn.nnn.nnn:30357/v3',
+    region='YunionHQ',
+    endpoint_type='publicURL',
+    insecure=True,
+)
+client.authenticate_by_access_key('355270364e0a46eb84429e5ffa043842', 'cktuREpGUnVrcjRNeGp0UlZQMmJaRjI4OVQ4UUdLanE=')
 
 # List all public images
 imgs, total, limit, offset = client.images.list(is_public='false', status='active')
