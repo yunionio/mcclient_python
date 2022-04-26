@@ -296,6 +296,7 @@ from yunionclient.api import webconsole
 from yunionclient.api import workerstats
 from yunionclient.api import x509keypairs
 from yunionclient.api import zonequotas
+from yunionclient.api import externalprojects
 
 
 logger = logging.getLogger(__name__)
@@ -602,6 +603,7 @@ class Client(http.HTTPClient):
         self.workerstats = workerstats.WorkersManager(self)
         self.x509keypairs = x509keypairs.X509keypairManager(self)
         self.zonequotas = zonequotas.ZoneQuotaManager(self)
+        self.externalprojects = externalprojects.ExternalProjectManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
