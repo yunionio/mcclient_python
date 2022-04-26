@@ -198,3 +198,4 @@ from .webconsole import *
 from .workerstats import *
 from .x509keypairs import *
 from .zonequotas import *
+from .externalprojects import *
