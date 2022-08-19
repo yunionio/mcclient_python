@@ -12,8 +12,21 @@ from yunionclient.common import utils
 @utils.arg('--admin', action='store_true', help='Is admin call?')
 @utils.arg('--tenant', metavar='<TENANT>', help='Tenant ID or Name')
 @utils.arg('--field', metavar='<FIELD>', action='append', help='Show only specified fields')
-def do_scheduler_list(client, args):
+def do_scheduler_history_list(client, args):
     """ List all Scheduler """
     page_info = utils.get_paging_info(args)
-    schedulers = client.schedulers.list(**page_info)
-    utils.print_list(schedulers, client.schedulers.columns)
+    schedulers = client.schedulers.history(**page_info)
+    utils.print_list(schedulers, ['SESSION_ID', 'TIME', 'CONSUMING', 'STATUS'])
+
+
+@utils.arg('id', metavar='<ID>', help='Session ID')
+def do_scheduler_history_show(client, args):
+    """ Show details of scheduler history """
+    rec = client.schedulers.history_show(args.id)
+    print(rec['output'])
+
+
+def do_scheduler_forecast(client, args):
+    """ Forecast scheduler """
+    result = client.schedulers.forecast(**kwargs)
+    print(result)

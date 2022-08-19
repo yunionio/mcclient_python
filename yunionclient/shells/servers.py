@@ -107,6 +107,7 @@ def parse_deploy_info(deploys, kwargs):
 @utils.arg('--container', action='store_true', help='Container Server')
 @utils.arg('--set-conf', metavar='<CONTAINERSETCONFPATH>', help='Container set config file path')
 @utils.arg('--hypervisor', metavar='<HYPERVISOR>', default='kvm', choices=['kvm', 'esxi', 'baremetal'], help='Server hypervisor type')
+@utils.arg('--forecast', action='store_true', help='do scheduler forecast only')
 def do_server_create(client, args):
     """ Create a VM server """
     kwargs = {}
@@ -254,6 +255,10 @@ def do_server_create(client, args):
     if args.hypervisor:
         kwargs['hypervisor'] = args.hypervisor
 
+    if args.forecast:
+        result = client.schedulers.forecast(**kwargs)
+        utils.print_dict(result)
+        return
     guest = client.guests.create(**kwargs)
     utils.print_dict(guest)
 

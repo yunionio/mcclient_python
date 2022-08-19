@@ -416,3 +416,6 @@ class MeterManager(StandaloneManager):
 
 class LoggerManager(StandaloneManager):
     service_type = 'log'
+
+class SchedulerManager(StandaloneManager):
+    service_type = 'scheduler'
