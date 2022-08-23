@@ -256,7 +256,7 @@ def do_server_create(client, args):
         kwargs['hypervisor'] = args.hypervisor
 
     if args.forecast:
-        result = client.schedulers.forecast(**kwargs)
+        result = client.schedulers.forecast(1, **kwargs)
         utils.print_dict(result)
         return
     guest = client.guests.create(**kwargs)

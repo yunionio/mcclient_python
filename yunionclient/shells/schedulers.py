@@ -24,9 +24,3 @@ def do_scheduler_history_show(client, args):
     """ Show details of scheduler history """
     rec = client.schedulers.history_show(args.id)
     print(rec['output'])
-
-
-def do_scheduler_forecast(client, args):
-    """ Forecast scheduler """
-    result = client.schedulers.forecast(**kwargs)
-    print(result)
