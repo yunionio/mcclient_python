@@ -6,9 +6,11 @@ class SchedulerManager(base.SchedulerManager):
     keyword_plural = 'schedulers'
     _columns = []
 
-    def forecast(self, **kwargs):
+    def forecast(self, count, **kwargs):
         url = r'/scheduler/forecast'
-        return self._create(url, kwargs, "data")
+        kwargs['__count__'] = count
+        resp, body = self.json_request('POST', url, body=kwargs)
+        return body
 
     def history(self, **kwargs):
         url = r'/scheduler/history-list'
