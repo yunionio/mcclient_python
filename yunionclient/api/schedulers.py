@@ -9,7 +9,7 @@ class SchedulerManager(base.SchedulerManager):
     def forecast(self, count, **kwargs):
         url = r'/scheduler/forecast'
         kwargs['__count__'] = count
-        resp, body = self.json_request('POST', url, body=kwargs)
+        _, body = self.json_request('POST', url, body=kwargs)
         return body
 
     def history(self, **kwargs):
