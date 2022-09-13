@@ -17,3 +17,10 @@ def do_webconsole_list(client, args):
     page_info = utils.get_paging_info(args)
     webconsole = client.webconsole.list(**page_info)
     utils.print_list(webconsole, client.webconsole.columns)
+
+
+@utils.arg('id', metavar='<SERVER_ID>', help='ID of virtual server to connect')
+def do_server_webconsole(client, args):
+    """ connect to a server """
+    info = client.webconsole.do_server_connect(args.id)
+    print(info)

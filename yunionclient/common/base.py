@@ -419,3 +419,6 @@ class LoggerManager(StandaloneManager):
 
 class SchedulerManager(StandaloneManager):
     service_type = 'scheduler'
+
+class WebconsoleManager(StandaloneManager):
+    service_type = 'webconsole'
