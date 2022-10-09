@@ -4,9 +4,8 @@ class Cloudgroupcache(base.ResourceBase):
     pass
 
 
-class CloudgroupcacheManager(base.StandaloneManager):
+class CloudgroupcacheManager(base.CloudidManager):
     resource_class = Cloudgroupcache
     keyword = 'cloudgroupcache'
     keyword_plural = 'cloudgroupcaches'
-    _columns = ["Id", "Name", "Description"]
-
+    _columns = []

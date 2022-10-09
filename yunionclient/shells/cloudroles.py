@@ -1,3 +1,5 @@
+import yunionclient
+
 from yunionclient.common import utils
 
 @utils.arg('--limit', metavar='<NUMBER>', default=20, help='Page limit')
@@ -13,7 +15,7 @@ from yunionclient.common import utils
 @utils.arg('--tenant', metavar='<TENANT>', help='Tenant ID or Name')
 @utils.arg('--field', metavar='<FIELD>', action='append', help='Show only specified fields')
 def do_cloudrole_list(client, args):
-    """ List all Cloudrole """
+    """ List all cloudroles"""
     page_info = utils.get_paging_info(args)
     cloudroles = client.cloudroles.list(**page_info)
     utils.print_list(cloudroles, client.cloudroles.columns)

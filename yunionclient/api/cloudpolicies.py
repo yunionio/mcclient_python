@@ -4,9 +4,8 @@ class Cloudpolicy(base.ResourceBase):
     pass
 
 
-class CloudpolicyManager(base.StandaloneManager):
+class CloudpolicyManager(base.CloudidManager):
     resource_class = Cloudpolicy
     keyword = 'cloudpolicy'
     keyword_plural = 'cloudpolicies'
-    _columns = ["Id", "Name", "Description", "Domain_Id", "Domain", "Public_Scope", "Policy_Type", "Status", "Locked"]
-
+    _columns = ["id","name","description","domain_id","domain","public_scope","policy_type","status","locked"]

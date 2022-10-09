@@ -4,9 +4,8 @@ class Cloudpolicycache(base.ResourceBase):
     pass
 
 
-class CloudpolicycacheManager(base.StandaloneManager):
+class CloudpolicycacheManager(base.CloudidManager):
     resource_class = Cloudpolicycache
     keyword = 'cloudpolicycache'
     keyword_plural = 'cloudpolicycaches'
-    _columns = ["Id", "Name", "Description"]
-
+    _columns = []

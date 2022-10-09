@@ -4,9 +4,8 @@ class Cloudgroup(base.ResourceBase):
     pass
 
 
-class CloudgroupManager(base.StandaloneManager):
+class CloudgroupManager(base.CloudidManager):
     resource_class = Cloudgroup
     keyword = 'cloudgroup'
     keyword_plural = 'cloudgroups'
-    _columns = ["Id", "Name", "Description"]
-
+    _columns = []
