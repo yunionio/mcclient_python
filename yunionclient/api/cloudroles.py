@@ -4,9 +4,8 @@ class Cloudrole(base.ResourceBase):
     pass
 
 
-class CloudroleManager(base.StandaloneManager):
+class CloudroleManager(base.CloudidManager):
     resource_class = Cloudrole
     keyword = 'cloudrole'
     keyword_plural = 'cloudroles'
-    _columns = ["Id", "Name", "Description"]
-
+    _columns = []

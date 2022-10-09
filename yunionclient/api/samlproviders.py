@@ -4,9 +4,8 @@ class SamlProvider(base.ResourceBase):
     pass
 
 
-class SamlProviderManager(base.StandaloneManager):
+class SamlProviderManager(base.CloudidManager):
     resource_class = SamlProvider
     keyword = 'saml_provider'
     keyword_plural = 'saml_providers'
-    _columns = ["Id", "Name", "Description"]
-
+    _columns = []

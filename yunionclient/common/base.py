@@ -414,6 +414,9 @@ class ResourceBase(object):
 class MeterManager(StandaloneManager):
     service_type = 'meter'
 
+class CloudidManager(StandaloneManager):
+    service_type = 'cloudid'
+
 class LoggerManager(StandaloneManager):
     service_type = 'log'
 

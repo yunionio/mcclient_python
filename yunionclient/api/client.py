@@ -147,14 +147,7 @@ from yunionclient.api import cloudkubeclusters
 from yunionclient.api import cloudkubenodepools
 from yunionclient.api import cloudkubenodes
 from yunionclient.api import cloudevents
-from yunionclient.api import cloudgroupcaches
-from yunionclient.api import cloudgroups
-from yunionclient.api import cloudpermissions
-from yunionclient.api import cloudpolicies
-from yunionclient.api import cloudpolicycaches
 from yunionclient.api import cloudproviderquotas
-from yunionclient.api import cloudroles
-from yunionclient.api import cloudusers
 from yunionclient.api import commonalerts
 from yunionclient.api import configmaps
 from yunionclient.api import contacts
@@ -247,8 +240,6 @@ from yunionclient.api import rolepolicies
 from yunionclient.api import routetableassociations
 from yunionclient.api import routetableroutesets
 from yunionclient.api import routetables
-from yunionclient.api import samlproviders
-from yunionclient.api import samlusers
 from yunionclient.api import scalingactivities
 from yunionclient.api import scalinggroups
 from yunionclient.api import scalingpolicies
@@ -297,6 +288,62 @@ from yunionclient.api import workerstats
 from yunionclient.api import x509keypairs
 from yunionclient.api import zonequotas
 from yunionclient.api import externalprojects
+from yunionclient.api import backupstorages
+from yunionclient.api import diskbackups
+from yunionclient.api import dynamicschedtags
+from yunionclient.api import instancebackups
+from yunionclient.api import ipv6gateways
+from yunionclient.api import miscresources
+from yunionclient.api import modelartspoolskus
+from yunionclient.api import modelartspools
+from yunionclient.api import schedpolicies
+from yunionclient.api import sshkeypairs
+from yunionclient.api import tablestores
+from yunionclient.api import tapflows
+from yunionclient.api import tapservices
+from yunionclient.api import accountbalances
+from yunionclient.api import amountestimations
+from yunionclient.api import associatedbills
+from yunionclient.api import bigqueryoptions
+from yunionclient.api import billanalysises
+from yunionclient.api import billbalances
+from yunionclient.api import billcloudchecks
+from yunionclient.api import billconditions
+from yunionclient.api import billdetails
+from yunionclient.api import billresources
+from yunionclient.api import billtags
+from yunionclient.api import billtasks
+from yunionclient.api import billingexchangerates
+from yunionclient.api import billsanalysises
+from yunionclient.api import billsdimensions
+from yunionclient.api import billsdimensionsanalysis
+from yunionclient.api import bucketoptions
+from yunionclient.api import budgets
+from yunionclient.api import cloudskurates
+from yunionclient.api import costconversions
+from yunionclient.api import costalerts
+from yunionclient.api import costreports
+from yunionclient.api import dailybills
+from yunionclient.api import dimensionjoints
+from yunionclient.api import meterevents
+from yunionclient.api import monthcppreservations
+from yunionclient.api import resresults
+from yunionclient.api import restagdetails
+from yunionclient.api import reservationshareds
+from yunionclient.api import reservations
+from yunionclient.api import resourcedetails
+from yunionclient.api import resourcefees
+from yunionclient.api import sharedbills
+from yunionclient.api import unusedresources
+from yunionclient.api import cloudgroupcaches
+from yunionclient.api import cloudgroups
+from yunionclient.api import cloudpermissions
+from yunionclient.api import cloudpolicies
+from yunionclient.api import cloudpolicycaches
+from yunionclient.api import cloudroles
+from yunionclient.api import cloudusers
+from yunionclient.api import samlproviders
+from yunionclient.api import samlusers
 
 
 logger = logging.getLogger(__name__)
@@ -454,14 +501,7 @@ class Client(http.HTTPClient):
         self.cloudkubenodepools = cloudkubenodepools.CloudKubeNodePoolManager(self)
         self.cloudkubenodes = cloudkubenodes.CloudKubeNodeManager(self)
         self.cloudevents = cloudevents.CloudeventManager(self)
-        self.cloudgroupcaches = cloudgroupcaches.CloudgroupcacheManager(self)
-        self.cloudgroups = cloudgroups.CloudgroupManager(self)
-        self.cloudpermissions = cloudpermissions.CloudpermissionManager(self)
-        self.cloudpolicies = cloudpolicies.CloudpolicyManager(self)
-        self.cloudpolicycaches = cloudpolicycaches.CloudpolicycacheManager(self)
         self.cloudproviderquotas = cloudproviderquotas.CloudproviderquotaManager(self)
-        self.cloudroles = cloudroles.CloudroleManager(self)
-        self.cloudusers = cloudusers.ClouduserManager(self)
         self.commonalerts = commonalerts.CommonalertManager(self)
         self.configmaps = configmaps.ConfigmapManager(self)
         self.contacts = contacts.ContactManager(self)
@@ -554,8 +594,6 @@ class Client(http.HTTPClient):
         self.routetableassociations = routetableassociations.RouteTableAssociationManager(self)
         self.routetableroutesets = routetableroutesets.RouteTableRouteSetManager(self)
         self.routetables = routetables.RouteTableManager(self)
-        self.samlproviders = samlproviders.SamlProviderManager(self)
-        self.samlusers = samlusers.SamluserManager(self)
         self.scalingactivities = scalingactivities.ScalingactivityManager(self)
         self.scalinggroups = scalinggroups.ScalinggroupManager(self)
         self.scalingpolicies = scalingpolicies.ScalingpolicyManager(self)
@@ -604,6 +642,62 @@ class Client(http.HTTPClient):
         self.x509keypairs = x509keypairs.X509keypairManager(self)
         self.zonequotas = zonequotas.ZoneQuotaManager(self)
         self.externalprojects = externalprojects.ExternalProjectManager(self)
+        self.backupstorages = backupstorages.BackupstorageManager(self)
+        self.diskbackups = diskbackups.DiskbackupManager(self)
+        self.dynamicschedtags = dynamicschedtags.DynamicschedtagManager(self)
+        self.instancebackups = instancebackups.InstancebackupManager(self)
+        self.ipv6gateways = ipv6gateways.Ipv6GatewayManager(self)
+        self.miscresources = miscresources.MiscResourceManager(self)
+        self.modelartspoolskus = modelartspoolskus.ModelartsPoolSkuManager(self)
+        self.modelartspools = modelartspools.ModelartsPoolManager(self)
+        self.schedpolicies = schedpolicies.SchedpolicyManager(self)
+        self.sshkeypairs = sshkeypairs.SshkeypairManager(self)
+        self.tablestores = tablestores.TablestoreManager(self)
+        self.tapflows = tapflows.TapFlowManager(self)
+        self.tapservices = tapservices.TapServiceManager(self)
+        self.accountbalances = accountbalances.AccountBalanceManager(self)
+        self.amountestimations = amountestimations.AmountEstimationManager(self)
+        self.associatedbills = associatedbills.AssociatedBillManager(self)
+        self.bigqueryoptions = bigqueryoptions.BigqueryOptionManager(self)
+        self.billanalysises = billanalysises.BillAnalysisManager(self)
+        self.billbalances = billbalances.BillBalanceManager(self)
+        self.billcloudchecks = billcloudchecks.BillCloudcheckManager(self)
+        self.billconditions = billconditions.BillConditionManager(self)
+        self.billdetails = billdetails.BillDetailManager(self)
+        self.billresources = billresources.BillResourceManager(self)
+        self.billtags = billtags.BillTagManager(self)
+        self.billtasks = billtasks.BillTaskManager(self)
+        self.billingexchangerates = billingexchangerates.BillingExchangeRateManager(self)
+        self.billsanalysises = billsanalysises.BillsanalysisManager(self)
+        self.billsdimensions = billsdimensions.BillsdimensionManager(self)
+        self.billsdimensionsanalysis = billsdimensionsanalysis.BillsdimensionsanalysisManager(self)
+        self.bucketoptions = bucketoptions.BucketOptionManager(self)
+        self.budgets = budgets.BudgetManager(self)
+        self.cloudskurates = cloudskurates.CloudSkuRateManager(self)
+        self.costconversions = costconversions.CostConversionManager(self)
+        self.costalerts = costalerts.CostalertManager(self)
+        self.costreports = costreports.CostreportManager(self)
+        self.dailybills = dailybills.DailyBillManager(self)
+        self.dimensionjoints = dimensionjoints.DimensionjointManager(self)
+        self.meterevents = meterevents.MeterEventManager(self)
+        self.monthcppreservations = monthcppreservations.MonthCppReservationManager(self)
+        self.resresults = resresults.ResResultManager(self)
+        self.restagdetails = restagdetails.ResTagDetailManager(self)
+        self.reservationshareds = reservationshareds.ReservationSharedManager(self)
+        self.reservations = reservations.ReservationManager(self)
+        self.resourcedetails = resourcedetails.ResourceDetailManager(self)
+        self.resourcefees = resourcefees.ResourceFeeManager(self)
+        self.sharedbills = sharedbills.SharedBillManager(self)
+        self.unusedresources = unusedresources.UnusedResourceManager(self)
+        self.cloudgroupcaches = cloudgroupcaches.CloudgroupcacheManager(self)
+        self.cloudgroups = cloudgroups.CloudgroupManager(self)
+        self.cloudpermissions = cloudpermissions.CloudpermissionManager(self)
+        self.cloudpolicies = cloudpolicies.CloudpolicyManager(self)
+        self.cloudpolicycaches = cloudpolicycaches.CloudpolicycacheManager(self)
+        self.cloudroles = cloudroles.CloudroleManager(self)
+        self.cloudusers = cloudusers.ClouduserManager(self)
+        self.samlproviders = samlproviders.SamlProviderManager(self)
+        self.samlusers = samlusers.SamluserManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
