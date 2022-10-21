@@ -1051,17 +1051,41 @@ class Client(http.HTTPClient):
     def get_endpoint(self, service, admin_api=False, region=None, zone=None):
         t = self.get_default_tenant()
         if t is not None:
-            if admin_api:
-                ep_type = 'adminURL'
-            else:
-                ep_type = self.endpoint_type
+            ep_type = self.endpoint_type
+            is_api_gateway = False
+            if ep_type == 'apigateway':
+                is_api_gateway = True
+                ep_type = 'internal'
             if region is None:
                 region = self.region
             if zone is None:
                 zone = self.zone
-            return t.get_endpoint(region, service, ep_type, zone=zone)
+            url = t.get_endpoint(region, service, ep_type, zone=zone)
+            if is_api_gateway:
+                url = self.apigateway_ep(url, service, region, zone)
+            return url
         else:
             raise Exception('No tenant specified')
+
+    def apigateway_ep(self, url, service, region, zone):
+        pos = self.auth_url.find("/s/identity")
+        host = self.auth_url[:pos]
+        while len(host) > 0 and host[len(host)-1] == '/':
+            host = host[:len(host)-1]
+        segs = [host, 's', service]
+        # r = self.get_regions()
+        # if len(r) > 1 or zone is not None:
+        #    segs.extend(['r', region])
+        # if zone is not None:
+        #     segs.extend(['z', zone])
+        url = url[len('https://'):]
+        pos2 = url.find('/')
+        if pos2 > 0:
+            path = url[pos2+1:]
+            while len(path) > 0 and path[0] == '/':
+                path = path[1:]
+                segs.append(path)
+        return '/'.join(segs)
 
     def _wrapped_request(self, func, service, admin_api, method, url, **kwargs):
         t = self.get_default_tenant()

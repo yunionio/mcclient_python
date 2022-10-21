@@ -5,6 +5,7 @@ from yunionclient.common import utils
 
 
 class TenantInfoManager(object):
+
     def __init__(self):
         self.tenants = {}
 

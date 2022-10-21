@@ -104,8 +104,8 @@ class HTTPClient(httplib2.Http):
         resp, body = super(HTTPClient, self).request(url, method, **kwargs)
         self.http_log((url, method,), kwargs, resp, body)
 
-        #print resp
-        #print 'BODY', body
+        #print(resp)
+        #print('BODY', body)
 
         if 400 <= resp.status < 600:
             #logger.exception("Request returned failure status.")
@@ -129,8 +129,10 @@ class HTTPClient(httplib2.Http):
         if body:
             try:
                 body = json.loads(body)
-            except ValueError:
+            except ValueError as e:
                 logger.debug("Could not decode JSON from body: %s" % body)
+            except Exception as e:
+                print('json loads error', e)
         else:
             logger.debug("No body was returned.")
             body = None
