@@ -1185,8 +1185,8 @@ def do_edge_wire_list(client, args):
 def do_eip_list(client, args):
     """ List of elastic IPs """
     page_info = utils.get_paging_info(args)
-    eips = client.elasticips.list(**page_info)
-    utils.print_list(eips, client.elasticips.columns)
+    eips = client.eips.list(**page_info)
+    utils.print_list(eips, client.eips.columns)
 
 
 @utils.arg('id', metavar='<EDGE_ID>', help='ID of edge router')
