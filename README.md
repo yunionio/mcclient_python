@@ -81,7 +81,7 @@ import yunionclient.api.client
 #if project_name is not None or project_id is not None:
 #    client.set_project(project_name=project_name, project_id=project_id)
 
-# 秘钥认证方式，速度更快，更安全
+# 秘钥认证方式
 client = yunionclient.api.client.Client(
     'https://nn.nnn.nnn.nnn:30357/v3',
     region='YunionHQ',
