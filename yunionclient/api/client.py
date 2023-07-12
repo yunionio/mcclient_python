@@ -70,9 +70,6 @@ from yunionclient.api import secgroupcaches
 from yunionclient.api import dnsrecords
 
 from yunionclient.api import baremetalagents
-from yunionclient.api import baremetals
-from yunionclient.api import baremetalnetworks
-from yunionclient.api import baremetalstorages
 
 from yunionclient.api import reservedips
 
@@ -427,9 +424,6 @@ class Client(http.HTTPClient):
         self.dns = dnsrecords.DNSRecordManager(self)
 
         self.baremetalagents = baremetalagents.BaremetalAgentManager(self)
-        self.baremetals = baremetals.BaremetalManager(self)
-        self.baremetalnetworks = baremetalnetworks.BaremetalnetworkManager(self)
-        self.baremetalstorages = baremetalstorages.BaremetalstorageManager(self)
 
         self.reservedips = reservedips.ReservedIPManager(self)
 
