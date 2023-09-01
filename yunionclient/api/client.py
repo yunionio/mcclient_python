@@ -67,6 +67,7 @@ from yunionclient.api import quotas
 from yunionclient.api import secgroups
 from yunionclient.api import secgroupcaches
 
+from yunionclient.api import dnszones
 from yunionclient.api import dnsrecords
 
 from yunionclient.api import baremetalagents
@@ -100,8 +101,6 @@ from yunionclient.api import dbinstances
 from yunionclient.api import dbinstancenetworks
 from yunionclient.api import elasticcaches
 
-from yunionclient.api import dnszones
-from yunionclient.api import dnsrecordsets
 
 from yunionclient.api import actionlogs
 
@@ -110,7 +109,6 @@ from yunionclient.api import buckets
 from yunionclient.api import natgateways
 from yunionclient.api import cloudaccounts
 from yunionclient.api import cloudproviders
-from yunionclient.api import dnszonecaches
 from yunionclient.api import eips
 from yunionclient.api import serverskus
 from yunionclient.api import dbinstancesku
@@ -160,7 +158,6 @@ from yunionclient.api import dbinstanceprivileges
 from yunionclient.api import deployments
 from yunionclient.api import devtoolcronjobs
 from yunionclient.api import devtooltemplates
-from yunionclient.api import dnstrafficpolicies
 from yunionclient.api import domainquotas
 from yunionclient.api import elasticcacheaccounts
 from yunionclient.api import elasticcacheacls
@@ -421,7 +418,6 @@ class Client(http.HTTPClient):
         self.secgroups = secgroups.SecuritygroupManager(self)
         self.secgroupcaches = secgroupcaches.SecgroupCacheManager(self)
 
-        self.dns = dnsrecords.DNSRecordManager(self)
 
         self.baremetalagents = baremetalagents.BaremetalAgentManager(self)
 
@@ -452,7 +448,7 @@ class Client(http.HTTPClient):
         self.price_metadatas = prices.PriceMetadataManager(self)
 
         self.dnszones = dnszones.DnsZoneManager(self)
-        self.dnsrecordsets = dnsrecordsets.DnsRecordsetManager(self)
+        self.dnsrecords = dnsrecords.DNSRecordManager(self)
 
         self.actionlogs = actionlogs.ActionManager(self)
 
@@ -461,7 +457,6 @@ class Client(http.HTTPClient):
         self.natgateways = natgateways.NatgatewayManager(self)
         self.cloudaccounts = cloudaccounts.CloudaccountManager(self)
         self.cloudproviders = cloudproviders.CloudproviderManager(self)
-        self.dnszonecaches = dnszonecaches.DnsZoneCacheManager(self)
         self.eips = eips.EIPManager(self)
         self.serverskus = serverskus.ServerSkuManager(self)
         self.dbinstance_skus = dbinstancesku.DbinstanceSkuManager(self)
@@ -511,7 +506,6 @@ class Client(http.HTTPClient):
         self.deployments = deployments.DeploymentManager(self)
         self.devtoolcronjobs = devtoolcronjobs.DevtoolCronjobManager(self)
         self.devtooltemplates = devtooltemplates.DevtoolTemplateManager(self)
-        self.dnstrafficpolicies = dnstrafficpolicies.DnsTrafficpolicyManager(self)
         self.domainquotas = domainquotas.DomainQuotaManager(self)
         self.elasticcacheaccounts = elasticcacheaccounts.ElasticcacheaccountManager(self)
         self.elasticcacheacls = elasticcacheacls.ElasticcacheaclManager(self)
