@@ -4,7 +4,7 @@ class IdentityProvider(base.ResourceBase):
     pass
 
 
-class IdentityProviderManager(base.StandaloneManager):
+class IdentityProviderManager(base.IdentityManager):
     resource_class = IdentityProvider
     keyword = 'identity_provider'
     keyword_plural = 'identity_providers'

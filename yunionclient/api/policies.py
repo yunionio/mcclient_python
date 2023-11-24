@@ -4,7 +4,7 @@ class Policy(base.ResourceBase):
     pass
 
 
-class PolicyManager(base.StandaloneManager):
+class PolicyManager(base.IdentityManager):
     resource_class = Policy
     keyword = 'policy'
     keyword_plural = 'policies'
