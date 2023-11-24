@@ -4,9 +4,9 @@ class RoleAssignment(base.ResourceBase):
     pass
 
 
-class RoleAssignmentManager(base.StandaloneManager):
+class RoleAssignmentManager(base.IdentityManager):
     resource_class = RoleAssignment
-    keyword = 'role_assignment'
-    keyword_plural = 'role_assignments'
+    keyword = 'assignment'
+    keyword_plural = 'assignments'
     _columns = ["Scope", "User", "Group", "Role", "Policies"]
 

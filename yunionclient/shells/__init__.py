@@ -65,7 +65,6 @@ from .dbinstanceprivileges import *
 from .deployments import *
 from .devtoolcronjobs import *
 from .devtooltemplates import *
-from .dnstrafficpolicies import *
 from .domainquotas import *
 from .elasticcacheaccounts import *
 from .elasticcacheacls import *
