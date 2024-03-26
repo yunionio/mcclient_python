@@ -20,7 +20,6 @@ from .schedtags import *
 from .metadatas import *
 from .price_infos import *
 from .serverskus import *
-from .accessgroupcaches import *
 from .accessgrouprules import *
 from .accessgroups import *
 from .apps import *
@@ -42,8 +41,6 @@ from .alertresources import *
 from .alerts import *
 from .appfromfiles import *
 from .baremetalevents import *
-from .cachedloadbalanceracls import *
-from .cachedloadbalancercertificates import *
 from .charts import *
 from .cloudkubeclusters import *
 from .cloudkubenodepools import *
@@ -160,7 +157,6 @@ from .servicecertificates import *
 from .serviceurls import *
 from .smsconfigs import *
 from .snapshotpolicies import *
-from .snapshotpolicycaches import *
 from .snapshots import *
 from .specs import *
 from .sshinfos import *

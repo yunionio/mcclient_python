@@ -65,7 +65,6 @@ from yunionclient.api import sshrelay
 from yunionclient.api import quotas
 
 from yunionclient.api import secgroups
-from yunionclient.api import secgroupcaches
 
 from yunionclient.api import dnszones
 from yunionclient.api import dnsrecords
@@ -114,7 +113,6 @@ from yunionclient.api import serverskus
 from yunionclient.api import dbinstancesku
 from yunionclient.api import mongodbs
 from yunionclient.api import cdndomains
-from yunionclient.api import accessgroupcaches
 from yunionclient.api import accessgrouprules
 from yunionclient.api import accessgroups
 from yunionclient.api import apps
@@ -135,8 +133,6 @@ from yunionclient.api import alertresources
 from yunionclient.api import alerts
 from yunionclient.api import appfromfiles
 from yunionclient.api import baremetalevents
-from yunionclient.api import cachedloadbalanceracls
-from yunionclient.api import cachedloadbalancercertificates
 from yunionclient.api import charts
 from yunionclient.api import cloudkubeclusters
 from yunionclient.api import cloudkubenodepools
@@ -253,7 +249,6 @@ from yunionclient.api import servicecertificates
 from yunionclient.api import serviceurls
 from yunionclient.api import smsconfigs
 from yunionclient.api import snapshotpolicies
-from yunionclient.api import snapshotpolicycaches
 from yunionclient.api import snapshots
 from yunionclient.api import specs
 from yunionclient.api import sshinfos
@@ -416,7 +411,6 @@ class Client(http.HTTPClient):
         self.endpoints = endpoints.EndpointManager(self)
 
         self.secgroups = secgroups.SecuritygroupManager(self)
-        self.secgroupcaches = secgroupcaches.SecgroupCacheManager(self)
 
 
         self.baremetalagents = baremetalagents.BaremetalAgentManager(self)
@@ -462,7 +456,6 @@ class Client(http.HTTPClient):
         self.dbinstance_skus = dbinstancesku.DbinstanceSkuManager(self)
         self.mongodbs = mongodbs.MongoDBManager(self)
         self.cdndomains = cdndomains.CdnDomainManager(self)
-        self.accessgroupcaches = accessgroupcaches.AccessGroupCacheManager(self)
         self.accessgrouprules = accessgrouprules.AccessGroupRuleManager(self)
         self.accessgroups = accessgroups.AccessGroupManager(self)
         self.apps = apps.AppManager(self)
@@ -483,8 +476,6 @@ class Client(http.HTTPClient):
         self.alerts = alerts.AlertManager(self)
         self.appfromfiles = appfromfiles.AppfromfileManager(self)
         self.baremetalevents = baremetalevents.BaremetaleventManager(self)
-        self.cachedloadbalanceracls = cachedloadbalanceracls.CachedloadbalanceraclManager(self)
-        self.cachedloadbalancercertificates = cachedloadbalancercertificates.CachedloadbalancercertificateManager(self)
         self.charts = charts.ChartManager(self)
         self.cloudkubeclusters = cloudkubeclusters.CloudKubeClusterManager(self)
         self.cloudkubenodepools = cloudkubenodepools.CloudKubeNodePoolManager(self)
@@ -601,7 +592,6 @@ class Client(http.HTTPClient):
         self.serviceurls = serviceurls.ServiceurlManager(self)
         self.smsconfigs = smsconfigs.SmsConfigManager(self)
         self.snapshotpolicies = snapshotpolicies.SnapshotpolicyManager(self)
-        self.snapshotpolicycaches = snapshotpolicycaches.SnapshotpolicycacheManager(self)
         self.snapshots = snapshots.SnapshotManager(self)
         self.specs = specs.SpecManager(self)
         self.sshinfos = sshinfos.SshinfoManager(self)
