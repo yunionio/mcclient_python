@@ -13,9 +13,11 @@ from yunionclient.common import utils
 @utils.arg('--filter-any', action='store_true', help='If true, match if any of the filters matches; otherwise, match if all of the filters match')
 @utils.arg('--admin', action='store_true', help='Is admin call?')
 @utils.arg('--tenant', metavar='<TENANT>', help='Tenant ID or Name')
+@utils.arg('--start-day', metavar='<START_DAY>', help='Start day')
+@utils.arg('--end-day', metavar='<END_DAY>', help='End day')
 @utils.arg('--field', metavar='<FIELD>', action='append', help='Show only specified fields')
-def do_cloudgroupcache_list(client, args):
-    """ List all cloudgroupcaches"""
+def do_payment_bill_list(client, args):
+    """ List payment bills"""
     page_info = utils.get_paging_info(args)
-    cloudgroupcaches = client.cloudgroupcaches.list(**page_info)
-    utils.print_list(cloudgroupcaches, client.cloudgroupcaches.columns)
+    bills = client.paymentbills.list(**page_info)
+    utils.print_list(bills, client.paymentbills.columns)

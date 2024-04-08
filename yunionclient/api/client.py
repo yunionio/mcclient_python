@@ -294,6 +294,7 @@ from yunionclient.api import accountbalances
 from yunionclient.api import amountestimations
 from yunionclient.api import associatedbills
 from yunionclient.api import bigqueryoptions
+from yunionclient.api import paymentbills
 from yunionclient.api import billanalysises
 from yunionclient.api import billbalances
 from yunionclient.api import billcloudchecks
@@ -637,6 +638,7 @@ class Client(http.HTTPClient):
         self.amountestimations = amountestimations.AmountEstimationManager(self)
         self.associatedbills = associatedbills.AssociatedBillManager(self)
         self.bigqueryoptions = bigqueryoptions.BigqueryOptionManager(self)
+        self.paymentbills = paymentbills.PaymentBillManager(self)
         self.billanalysises = billanalysises.BillAnalysisManager(self)
         self.billbalances = billbalances.BillBalanceManager(self)
         self.billcloudchecks = billcloudchecks.BillCloudcheckManager(self)
