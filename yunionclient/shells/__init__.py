@@ -203,6 +203,7 @@ from .accountbalances import *
 from .amountestimations import *
 from .associatedbills import *
 from .bigqueryoptions import *
+from .paymentbills import *
 from .billanalysises import *
 from .billbalances import *
 from .billcloudchecks import *
@@ -234,11 +235,9 @@ from .resourcefees import *
 from .sharedbills import *
 from .unusedresources import *
 
-from .cloudgroupcaches import *
 from .cloudgroups import *
 from .cloudpermissions import *
 from .cloudpolicies import *
-from .cloudpolicycaches import *
 from .cloudroles import *
 from .cloudusers import *
 from .samlproviders import *
