@@ -325,11 +325,9 @@ from yunionclient.api import resourcedetails
 from yunionclient.api import resourcefees
 from yunionclient.api import sharedbills
 from yunionclient.api import unusedresources
-from yunionclient.api import cloudgroupcaches
 from yunionclient.api import cloudgroups
 from yunionclient.api import cloudpermissions
 from yunionclient.api import cloudpolicies
-from yunionclient.api import cloudpolicycaches
 from yunionclient.api import cloudroles
 from yunionclient.api import cloudusers
 from yunionclient.api import samlproviders
@@ -669,11 +667,9 @@ class Client(http.HTTPClient):
         self.resourcefees = resourcefees.ResourceFeeManager(self)
         self.sharedbills = sharedbills.SharedBillManager(self)
         self.unusedresources = unusedresources.UnusedResourceManager(self)
-        self.cloudgroupcaches = cloudgroupcaches.CloudgroupcacheManager(self)
         self.cloudgroups = cloudgroups.CloudgroupManager(self)
         self.cloudpermissions = cloudpermissions.CloudpermissionManager(self)
         self.cloudpolicies = cloudpolicies.CloudpolicyManager(self)
-        self.cloudpolicycaches = cloudpolicycaches.CloudpolicycacheManager(self)
         self.cloudroles = cloudroles.CloudroleManager(self)
         self.cloudusers = cloudusers.ClouduserManager(self)
         self.samlproviders = samlproviders.SamlProviderManager(self)
