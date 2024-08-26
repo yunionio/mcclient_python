@@ -242,3 +242,7 @@ from .cloudroles import *
 from .cloudusers import *
 from .samlproviders import *
 from .samlusers import *
+
+from .extattributes import *
+from .extresourcetypes import *
+from .extresources import *

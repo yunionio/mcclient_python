@@ -425,3 +425,6 @@ class SchedulerManager(StandaloneManager):
 
 class WebconsoleManager(StandaloneManager):
     service_type = 'webconsole'
+
+class ExtdbManager(StandaloneManager):
+    service_type = 'extdb'

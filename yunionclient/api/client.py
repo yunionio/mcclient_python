@@ -332,6 +332,9 @@ from yunionclient.api import cloudroles
 from yunionclient.api import cloudusers
 from yunionclient.api import samlproviders
 from yunionclient.api import samlusers
+from yunionclient.api import extattributes
+from yunionclient.api import extresourcetypes
+from yunionclient.api import extresources
 
 
 logger = logging.getLogger(__name__)
@@ -674,6 +677,9 @@ class Client(http.HTTPClient):
         self.cloudusers = cloudusers.ClouduserManager(self)
         self.samlproviders = samlproviders.SamlProviderManager(self)
         self.samlusers = samlusers.SamluserManager(self)
+        self.extattributes = extattributes.ExtAttributeManager(self)
+        self.extresourcetypes = extresourcetypes.ExtResourceTypeManager(self)
+        self.extresources = extresources.ExtResourceManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
