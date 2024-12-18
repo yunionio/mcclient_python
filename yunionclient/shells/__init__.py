@@ -47,6 +47,7 @@ from .cloudkubenodepools import *
 from .cloudkubenodes import *
 from .cloudevents import *
 from .cloudproviderquotas import *
+from .cloudproviderregions import *
 from .commonalerts import *
 from .configmaps import *
 from .contacts import *
