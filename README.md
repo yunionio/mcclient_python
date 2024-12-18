@@ -66,7 +66,7 @@ desc = {
         None,                               # domain
     ),
     'kwargs': {
-        'region': 'YunionHQ',
+        'region': 'region0',
         'zone': None,
         'insecure': True,
         'endpoint_type': 'publicURL',
@@ -87,8 +87,20 @@ if project_name is not None or project_id is not None:
 ```python
 client = yunionclient.api.client.Client(
     'https://nn.nnn.nnn.nnn:30500/v3',
-    region='YunionHQ',
+    region='region0',
     endpoint_type='publicURL',
+    insecure=True,
+)
+client.authenticate_by_access_key('355270364e0a46eb84429e5ffa043842', 'cktuREpGUnVrcjRNeGp0UlZQMmJaRjI4OVQ4UUdLanE=')
+```
+
+使用网关 Access Key/Secret认证：
+
+```python
+client = yunionclient.api.client.Client(
+    'https://nn.nnn.nnn.nnn/api/s/identity/v3',
+    region='region0',
+    endpoint_type='apigateway',
     insecure=True,
 )
 client.authenticate_by_access_key('355270364e0a46eb84429e5ffa043842', 'cktuREpGUnVrcjRNeGp0UlZQMmJaRjI4OVQ4UUdLanE=')
@@ -140,7 +152,7 @@ import yunionclient.api.client
 #        None,                               # domain
 #    ),
 #    'kwargs': {
-#        'region': 'YunionHQ',
+#        'region': 'region0',
 #        'zone': None,
 #        'insecure': True,
 #        'endpoint_type': 'publicURL',
@@ -158,7 +170,7 @@ import yunionclient.api.client
 # 秘钥认证方式
 client = yunionclient.api.client.Client(
     'https://nn.nnn.nnn.nnn:30357/v3',
-    region='YunionHQ',
+    region='region0',
     endpoint_type='publicURL',
     insecure=True,
 )
