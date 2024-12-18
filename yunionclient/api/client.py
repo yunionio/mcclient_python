@@ -139,6 +139,7 @@ from yunionclient.api import cloudkubenodepools
 from yunionclient.api import cloudkubenodes
 from yunionclient.api import cloudevents
 from yunionclient.api import cloudproviderquotas
+from yunionclient.api import cloudproviderregions
 from yunionclient.api import commonalerts
 from yunionclient.api import configmaps
 from yunionclient.api import contacts
@@ -484,6 +485,7 @@ class Client(http.HTTPClient):
         self.cloudkubenodes = cloudkubenodes.CloudKubeNodeManager(self)
         self.cloudevents = cloudevents.CloudeventManager(self)
         self.cloudproviderquotas = cloudproviderquotas.CloudproviderquotaManager(self)
+        self.cloudproviderregions = cloudproviderregions.CloudproviderregionManager(self)
         self.commonalerts = commonalerts.CommonalertManager(self)
         self.configmaps = configmaps.ConfigmapManager(self)
         self.contacts = contacts.ContactManager(self)
