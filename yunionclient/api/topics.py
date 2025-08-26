@@ -4,7 +4,7 @@ class Topic(base.ResourceBase):
     pass
 
 
-class TopicManager(base.StandaloneManager):
+class TopicManager(base.NotifyManager):
     resource_class = Topic
     keyword = 'topic'
     keyword_plural = 'topics'

@@ -4,7 +4,7 @@ class Notifytemplate(base.ResourceBase):
     pass
 
 
-class NotifytemplateManager(base.StandaloneManager):
+class NotifytemplateManager(base.NotifyManager):
     resource_class = Notifytemplate
     keyword = 'notifytemplate'
     keyword_plural = 'notifytemplates'

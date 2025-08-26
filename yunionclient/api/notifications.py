@@ -4,7 +4,7 @@ class Notification(base.ResourceBase):
     pass
 
 
-class NotificationManager(base.StandaloneManager):
+class NotificationManager(base.NotifyManager):
     resource_class = Notification
     keyword = 'notification'
     keyword_plural = 'notifications'
