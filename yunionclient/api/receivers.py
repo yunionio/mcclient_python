@@ -4,7 +4,7 @@ class Receiver(base.ResourceBase):
     pass
 
 
-class ReceiverManager(base.StandaloneManager):
+class ReceiverManager(base.NotifyManager):
     resource_class = Receiver
     keyword = 'receiver'
     keyword_plural = 'receivers'

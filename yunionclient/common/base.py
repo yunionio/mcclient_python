@@ -417,6 +417,10 @@ class MeterManager(StandaloneManager):
 class CloudidManager(StandaloneManager):
     service_type = 'cloudid'
 
+class NotifyManager(StandaloneManager):
+    service_type = 'notify'
+    _version = 'v2'
+
 class LoggerManager(StandaloneManager):
     service_type = 'log'
 

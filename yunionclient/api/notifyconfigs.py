@@ -4,7 +4,7 @@ class Notifyconfig(base.ResourceBase):
     pass
 
 
-class NotifyconfigManager(base.StandaloneManager):
+class NotifyconfigManager(base.NotifyManager):
     resource_class = Notifyconfig
     keyword = 'notifyconfig'
     keyword_plural = 'notifyconfigs'
