@@ -120,14 +120,14 @@ client目前仅支持了部分资源，具体参考 yunionclient/api/client.py �
 
 | 操作                   | 方法                                                      | 举例                                                                 |
 |------------------------|-----------------------------------------------------------|----------------------------------------------------------------------|
-| 创建资源               | client.<resources>.create(**kwargs)                       | client.guests.create(**kwargs)                                       |
-| 获得资源列表           | client.<resources>.list(**filters)                        | client.guests.list(**{scope=system})                                 |
-| 执行资源的操作         | client.<resources>.perform_class_action(action, **kwargs) | client.guests.perform_class_action('validate_create_data', **kwargs) |
-| 获取某个资源的详情     | client.<resources>.get(id)                                | client.guests.get(id)                                                |
-| 获取某个资源的特定属性 | client.<resources>.get_spec(id, spec)                     | client.guests.get_spec(id, 'vnc')                                    |
-| 更新资源的属性         | client.<resources>.update(id, **kwargs)                   | client.guests.update(id, **{name: 'new-name'})                       |
-| 执行某个资源的操作     | client.<resources>.perform_action(id, action, **kwargs)   | client.guests.perform_action(id, 'start')                            |
-| 删除某个资源           | client.<resources>.delete(id)                             | client.guests.delete(id)                                             |
+| 创建资源               | client.\<resources>\.create(**kwargs)                       | client.guests.create(**kwargs)                                       |
+| 获得资源列表           | client.\<resources>\.list(**filters)                        | client.guests.list(**{scope=system})                                 |
+| 执行资源的操作         | client.\<resources>\.perform_class_action(action, **kwargs) | client.guests.perform_class_action('validate_create_data', **kwargs) |
+| 获取某个资源的详情     | client.\<resources>\.get(id)                                | client.guests.get(id)                                                |
+| 获取某个资源的特定属性 | client.\<resources>\.get_spec(id, spec)                     | client.guests.get_spec(id, 'vnc')                                    |
+| 更新资源的属性         | client.\<resources>\.update(id, **kwargs)                   | client.guests.update(id, **{name: 'new-name'})                       |
+| 执行某个资源的操作     | client.\<resources>\.perform_action(id, action, **kwargs)   | client.guests.perform_action(id, 'start')                            |
+| 删除某个资源           | client.\<resources>\.delete(id)                             | client.guests.delete(id)                                             |
 
 具体方法参数，可以参考API文档：https://www.cloudpods.org/zh/docs/swagger
 
