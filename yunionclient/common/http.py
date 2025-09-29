@@ -128,8 +128,9 @@ class HTTPClient(httplib2.Http):
 
         if body:
             try:
-                body = json.loads(body)
+                body = json.loads(body.decode('utf-8', 'ignore').encode('utf-8'))
             except ValueError as e:
+                print(e)
                 logger.debug("Could not decode JSON from body: %s" % body)
             except Exception as e:
                 print('json loads error', e)
