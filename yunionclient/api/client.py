@@ -336,6 +336,8 @@ from yunionclient.api import samlusers
 from yunionclient.api import extattributes
 from yunionclient.api import extresourcetypes
 from yunionclient.api import extresources
+from yunionclient.api import suggestionalerts
+from yunionclient.api import suggestionrules
 
 
 logger = logging.getLogger(__name__)
@@ -682,6 +684,9 @@ class Client(http.HTTPClient):
         self.extattributes = extattributes.ExtAttributeManager(self)
         self.extresourcetypes = extresourcetypes.ExtResourceTypeManager(self)
         self.extresources = extresources.ExtResourceManager(self)
+
+        self.suggestionalerts = suggestionalerts.SuggestionalertManager(self)
+        self.suggestionrules = suggestionrules.SuggestionruleManager(self)
 
     def set_region(self, region, zone=None):
         self.region = region
