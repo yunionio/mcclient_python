@@ -432,3 +432,6 @@ class WebconsoleManager(StandaloneManager):
 
 class ExtdbManager(StandaloneManager):
     service_type = 'extdb'
+
+class SuggestionManager(StandaloneManager):
+    service_type = 'suggestion'

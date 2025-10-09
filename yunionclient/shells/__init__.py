@@ -247,3 +247,6 @@ from .samlusers import *
 from .extattributes import *
 from .extresourcetypes import *
 from .extresources import *
+
+from .suggestionalerts import *
+from .suggestionrules import *
