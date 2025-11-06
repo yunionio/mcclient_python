@@ -217,6 +217,8 @@ from .billingexchangerates import *
 from .billsanalysises import *
 from .billsdimensions import *
 from .billsdimensionsanalysis import *
+from .ratesets import *
+from .rates import *
 from .bucketoptions import *
 from .budgets import *
 from .cloudskurates import *
