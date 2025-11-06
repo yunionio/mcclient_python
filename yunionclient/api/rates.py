@@ -1,10 +1,14 @@
 from yunionclient.common import base
 
+class Rate(base.ResourceBase):
+    pass
 
-class RateManager(base.StandaloneManager):
-    service_type = 'meter'
+
+class RateManager(base.MeterManager):
+    resource_class = Rate
     keyword = 'rate'
     keyword_plural = 'rates'
+    _columns = ["id","name","description","created_at","updated_at"]
 
     def get_rate_table_at(self, tm):
         assert(tm is not None and len(tm) > 0)

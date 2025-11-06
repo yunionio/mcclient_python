@@ -308,6 +308,8 @@ from yunionclient.api import billingexchangerates
 from yunionclient.api import billsanalysises
 from yunionclient.api import billsdimensions
 from yunionclient.api import billsdimensionsanalysis
+from yunionclient.api import ratesets
+from yunionclient.api import rates
 from yunionclient.api import bucketoptions
 from yunionclient.api import budgets
 from yunionclient.api import cloudskurates
@@ -653,6 +655,8 @@ class Client(http.HTTPClient):
         self.billtags = billtags.BillTagManager(self)
         self.billtasks = billtasks.BillTaskManager(self)
         self.billingexchangerates = billingexchangerates.BillingExchangeRateManager(self)
+        self.ratesets = ratesets.RateSetManager(self)
+        self.rates = rates.RateManager(self)
         self.billsanalysises = billsanalysises.BillsanalysisManager(self)
         self.billsdimensions = billsdimensions.BillsdimensionManager(self)
         self.billsdimensionsanalysis = billsdimensionsanalysis.BillsdimensionsanalysisManager(self)
