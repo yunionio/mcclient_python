@@ -33,7 +33,7 @@ class HTTPClient(httplib2.Http):
         elif not logger.isEnabledFor(logging.DEBUG):
             return
 
-        string_parts = ['curl -i']
+        string_parts = ['curl -k -i']
         for element in args:
             if element in ('GET', 'POST'):
                 string_parts.append(' -X %s' % element)
@@ -74,6 +74,7 @@ class HTTPClient(httplib2.Http):
         headers = copy.deepcopy(kwargs.get('headers', {}))
         headers.setdefault('User-Agent', USER_AGENT)
         headers.setdefault('Connection', 'Close')
+        headers.setdefault('X-Yunion-Peer-Service-Name', 'python-sdk')
         if auth_token:
             headers.setdefault('X-Auth-Token', auth_token)
         for h in list(headers.keys()):
@@ -92,6 +93,7 @@ class HTTPClient(httplib2.Http):
         # Copy the kwargs so we can reuse the original in case of redirects
         kwargs['headers'] = copy.deepcopy(kwargs.get('headers', {}))
         kwargs['headers'].setdefault('User-Agent', USER_AGENT)
+        kwargs['headers'].setdefault('X-Yunion-Peer-Service-Name', 'python-sdk')
         #kwargs['headers'].setdefault('Accept-Encoding', 'identity')
         if auth_token:
             kwargs['headers'].setdefault('X-Auth-Token', auth_token)
