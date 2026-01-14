@@ -148,4 +148,4 @@ def from_response(response, body):
         message = "Unable to communicate with API service: %s." % body
         details = None
         return cls(code=response.status, message=message, details=details)
-    return cls(code=response.status)
+    return cls(code=response.status, message='Unknown error')
